@@ -16,4 +16,6 @@
     <string name="complete_by">Complete By</string>
     <string name="task_description">Task Description</string>
     <string name="employee_username">Employee Username</string>
+    <string name="task">Task</string>
+    <string name="date">Date</string>
 </resources>

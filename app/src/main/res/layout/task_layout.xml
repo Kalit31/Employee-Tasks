@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal"
+              android:layout_width="match_parent"
+              android:layout_height="80dp">
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0.75"
+            android:gravity="center"
+            android:text="@string/task"
+            android:id="@+id/tV_task"
+            android:textStyle="bold" android:textSize="25sp"/>
+    <TextView android:layout_width="wrap_content"
+              android:layout_height="match_parent"
+              android:layout_weight="0.25"
+              android:gravity="center"
+              android:id="@+id/tV_date"
+    android:text="@string/date"/>
+
+
+</LinearLayout>
