@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "654535658141",
+    "firebase_url": "https://ramkumartextiles-13c84.firebaseio.com",
+    "project_id": "ramkumartextiles-13c84",
+    "storage_bucket": "ramkumartextiles-13c84.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:654535658141:android:cd0a0e0bf6e418d9",
+        "android_client_info": {
+          "package_name": "com.example.todolist_ramkumartextiles"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "654535658141-tajll0385f8stlclqs4h6lbrancn941m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.todolist_ramkumartextiles",
+            "certificate_hash": "8d59ee7781ff7d2e3729a3273054549b5b8d4179"
+          }
+        },
+        {
+          "client_id": "654535658141-d7ehfg3rq7vpat5vie24tg0ndqtvisin.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDPi70utmreC0KrT99ispH5QtT3AcQkhds"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "654535658141-d7ehfg3rq7vpat5vie24tg0ndqtvisin.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
