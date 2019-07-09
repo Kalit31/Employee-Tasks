@@ -55,8 +55,6 @@ class ToDoActivity : AppCompatActivity() {
                         items.add(item)
                     }
                 }
-                val it: TaskInformation? = TaskInformation("inanikalit31@gmail.com","Make payments","10/07/19")
-                items.add(it!!)
                 Toast.makeText(applicationContext,"Reached here", Toast.LENGTH_SHORT).show()
                 adapter = RecycleAdapt(items)
                 recyclerView.layoutManager = LinearLayoutManager(this@ToDoActivity)
