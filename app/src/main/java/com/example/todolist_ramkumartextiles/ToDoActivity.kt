@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.LinearLayout
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
@@ -26,7 +27,6 @@ class ToDoActivity : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
 
-        databaseReference = FirebaseDatabase.getInstance().getReference()
 
         if(auth.currentUser == null)
         {
@@ -34,9 +34,12 @@ class ToDoActivity : AppCompatActivity() {
             startActivity(Intent(applicationContext, LoginActivity::class.java))
         }
         val user = auth.currentUser
-        if (user != null) {
-            textView.text = "Welcome  " + user.email
-        }
+        val u = user!!.email.toString()
+        databaseReference = FirebaseDatabase.getInstance().getReference(u.split('@','.')[0])
+
+
+        textView.text = "Welcome  " + user.email!!.substringBefore('@')
+
         logout.setOnClickListener {
             auth.signOut()
             finish()
@@ -47,19 +50,21 @@ class ToDoActivity : AppCompatActivity() {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
+
                 for (ds in dataSnapshot.children)
                 {
                     val item: TaskInformation? = ds.getValue(TaskInformation::class.java)
-                    if(item!!.getEmployeeName() == user!!.email)
-                    {
+                    if (item != null) {
                         items.add(item)
                     }
+
                 }
                 Toast.makeText(applicationContext,"Reached here", Toast.LENGTH_SHORT).show()
                 adapter = RecycleAdapt(items)
                 recyclerView.layoutManager = LinearLayoutManager(this@ToDoActivity)
                 //recyclerView.hasFixedSize() = true
                 recyclerView.adapter= adapter
+
             }
 
             override fun onCancelled(error: DatabaseError) {

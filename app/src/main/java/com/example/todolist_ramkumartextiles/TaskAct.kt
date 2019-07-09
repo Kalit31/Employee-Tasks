@@ -19,13 +19,14 @@ class TaskAct : AppCompatActivity(){
     private lateinit var databaseReference: DatabaseReference
     private lateinit var auth: FirebaseAuth
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_task)
 
         auth = FirebaseAuth.getInstance()
 
-        databaseReference = FirebaseDatabase.getInstance().getReference()
+
 
         var dateString: String = ""
 
@@ -42,16 +43,17 @@ class TaskAct : AppCompatActivity(){
       }
 
         submitTask.setOnClickListener {
-            val employeeName = employee_name.text.toString()
+            val employeeName: String = employee_name.text.toString()
             val taskDesc = desc.text.toString()
-
+            val status = false
             if(TextUtils.isEmpty(employeeName) || TextUtils.isEmpty(taskDesc))
             {
                 Toast.makeText(applicationContext,"Incomplete Task", Toast.LENGTH_SHORT).show()
             }
             else
             {
-                val taskInfo: TaskInformation = TaskInformation(employeeName, taskDesc, dateString)
+                val taskInfo: TaskInformation = TaskInformation(employeeName, taskDesc, dateString,status)
+                databaseReference = FirebaseDatabase.getInstance().getReference(employeeName.split('@','.')[0])
                 databaseReference.push().setValue(taskInfo)
                 Toast.makeText(applicationContext,"Uploaded Task", Toast.LENGTH_SHORT).show()
             }

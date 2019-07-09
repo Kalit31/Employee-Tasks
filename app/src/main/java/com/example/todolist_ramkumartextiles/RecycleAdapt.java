@@ -3,10 +3,7 @@ package com.example.todolist_ramkumartextiles;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.*;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -44,11 +41,13 @@ public class RecycleAdapt extends RecyclerView.Adapter<RecycleAdapt.ViewHolder>
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView task, date;
+        CheckBox status;
 
         public ViewHolder(View itemView) {
             super(itemView);
             task = itemView.findViewById(R.id.tV_task);
             date = itemView.findViewById(R.id.tV_date);
+            status = itemView.findViewById(R.id.status);
         }
     }
 }

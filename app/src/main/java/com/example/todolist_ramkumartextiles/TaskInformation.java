@@ -3,18 +3,28 @@ package com.example.todolist_ramkumartextiles;
 public class TaskInformation
 {
     public String employeeName, desc, date;
+    public Boolean status;
 
     public TaskInformation() {
     }
 
-    public TaskInformation(String employeeName, String desc, String date) {
+    public TaskInformation(String employeeName, String desc, String date,Boolean status) {
         this.employeeName = employeeName;
         this.desc = desc;
         this.date = date;
+        this.status = status;
     }
 
     public String getEmployeeName() {
         return employeeName;
+    }
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
     }
 
     public void setEmployeeName(String employeeName) {
