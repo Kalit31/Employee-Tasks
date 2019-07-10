@@ -28,6 +28,7 @@
                android:layout_height="wrap_content"
                android:id="@+id/textView"
                android:gravity="center"
+               android:background="@drawable/text_underline"
                android:textSize="20sp"
                android:layout_alignParentLeft="true"
                android:textColor="@color/colorAccent"
@@ -37,17 +38,48 @@
                android:layout_marginStart="0dp"/>
 
    </RelativeLayout>
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1">
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="Status"
+                  android:gravity="left"
+                  android:layout_weight="0.2"
+                  android:textColor="@color/colorAccent"
+                  android:layout_gravity="center"
+        />
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="Description"
+                  android:gravity="center"
+                  android:textColor="@color/colorAccent"
+                  android:layout_gravity="center"
+                  android:layout_weight="0.5"
+        />
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="Complete By"
+                  android:gravity="right"
+                  android:textColor="@color/colorAccent"
+                  android:layout_gravity="center"
+                  android:layout_weight="0.3"
+        />
+
+    </LinearLayout>
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.85"
+            android:layout_weight="0.75"
            />
     <Button android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.02"
             android:layout_gravity="center"
             android:text="Update"
+            android:id="@+id/updateTask"
             android:background="@drawable/button_design2"
             android:gravity="center"
     />

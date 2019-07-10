@@ -8,6 +8,7 @@ import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
@@ -50,7 +51,7 @@ class ToDoActivity : AppCompatActivity() {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
-
+                items.clear()
                 for (ds in dataSnapshot.children)
                 {
                     val item: TaskInformation? = ds.getValue(TaskInformation::class.java)
@@ -60,7 +61,7 @@ class ToDoActivity : AppCompatActivity() {
 
                 }
                 Toast.makeText(applicationContext,"Reached here", Toast.LENGTH_SHORT).show()
-                adapter = RecycleAdapt(items)
+                adapter = RecycleAdapt(items,applicationContext)
                 recyclerView.layoutManager = LinearLayoutManager(this@ToDoActivity)
                 //recyclerView.hasFixedSize() = true
                 recyclerView.adapter= adapter
@@ -74,6 +75,17 @@ class ToDoActivity : AppCompatActivity() {
             }
         })
 
+        updateTask.setOnClickListener {
+            for(item in this.items)
+            {
+                if(item.getStatus())
+                {
+                    val ref = databaseReference.child(item.getTaskId())
+                    ref.removeValue()
+                }
+
+            }
+        }
     }
 }
 

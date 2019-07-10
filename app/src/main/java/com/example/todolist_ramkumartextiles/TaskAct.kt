@@ -1,6 +1,9 @@
 package com.example.todolist_ramkumartextiles
 
 import android.app.DatePickerDialog
+import android.content.Context
+import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
@@ -26,8 +29,6 @@ class TaskAct : AppCompatActivity(){
 
         auth = FirebaseAuth.getInstance()
 
-
-
         var dateString: String = ""
 
       date.setOnClickListener {
@@ -52,11 +53,21 @@ class TaskAct : AppCompatActivity(){
             }
             else
             {
-                val taskInfo: TaskInformation = TaskInformation(employeeName, taskDesc, dateString,status)
                 databaseReference = FirebaseDatabase.getInstance().getReference(employeeName.split('@','.')[0])
-                databaseReference.push().setValue(taskInfo)
+                val taskId = databaseReference.push().key
+                val taskInfo: TaskInformation = TaskInformation(employeeName, taskDesc, dateString,status,taskId)
+                databaseReference.child(taskId!!).setValue(taskInfo)
                 Toast.makeText(applicationContext,"Uploaded Task", Toast.LENGTH_SHORT).show()
             }
+        }
+
+        logout_owners.setOnClickListener {
+            finish()
+            var sharedPreferences = getSharedPreferences("LoginPref", Context.MODE_PRIVATE)
+            val logoutEdit: SharedPreferences.Editor = sharedPreferences.edit()
+            logoutEdit.putBoolean("login",false)
+            logoutEdit.apply()
+            startActivity(Intent(applicationContext, MainActivity::class.java))
         }
     }
 }

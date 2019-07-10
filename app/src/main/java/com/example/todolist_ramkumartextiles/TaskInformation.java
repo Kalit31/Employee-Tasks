@@ -2,17 +2,18 @@ package com.example.todolist_ramkumartextiles;
 
 public class TaskInformation
 {
-    public String employeeName, desc, date;
+    public String employeeName, desc, date, taskId;
     public Boolean status;
 
     public TaskInformation() {
     }
 
-    public TaskInformation(String employeeName, String desc, String date,Boolean status) {
+    public TaskInformation(String employeeName, String desc, String date,Boolean status, String taskId) {
         this.employeeName = employeeName;
         this.desc = desc;
         this.date = date;
         this.status = status;
+        this.taskId = taskId;
     }
 
     public String getEmployeeName() {
@@ -45,5 +46,13 @@ public class TaskInformation
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getTaskId() {
+        return taskId;
+    }
+
+    public void setTaskId(String taskId) {
+        this.taskId = taskId;
     }
 }

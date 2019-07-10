@@ -3,14 +3,14 @@
               android:orientation="horizontal"
               android:layout_width="match_parent"
               android:layout_height="80dp"
-                android:background="@drawable/edittext_design"
->
+                android:background="@drawable/edittext_design">
 
     <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-    android:layout_weight="0.1"
-    android:id="@+id/status"/>
+            android:layout_weight="0.1"
+            android:id="@+id/status"/>
+
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -21,14 +21,14 @@
             android:text="@string/task"
             android:textColor="@color/colorAccent"
             android:id="@+id/tV_task"
-            android:textStyle="bold" android:textSize="25sp"/>
+            android:textStyle="bold"
+            android:textSize="25sp"/>
+
     <TextView android:layout_width="wrap_content"
               android:layout_height="match_parent"
               android:layout_weight="0.25"
               android:gravity="center"
               android:id="@+id/tV_date"
-    android:text="@string/date"/>
-
-
+              android:text="@string/date"/>
 
 </LinearLayout>

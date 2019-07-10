@@ -1,5 +1,6 @@
 package com.example.todolist_ramkumartextiles;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,9 +15,9 @@ public class RecycleAdapt extends RecyclerView.Adapter<RecycleAdapt.ViewHolder>
     private ArrayList<TaskInformation> items;
 
 
-    public RecycleAdapt(ArrayList<TaskInformation> items)
+    public RecycleAdapt(ArrayList<TaskInformation> items, Context context)
     {
-        this.items = items;
+         this.items = items;
     }
 
     @Override
@@ -28,9 +29,16 @@ public class RecycleAdapt extends RecyclerView.Adapter<RecycleAdapt.ViewHolder>
     }
 
     @Override
-    public void onBindViewHolder( final ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(final ViewHolder viewHolder, final int i) {
         viewHolder.task.setText(items.get(i).getDesc());
         viewHolder.date.setText(items.get(i).getDate());
+        viewHolder.status.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b)
+                    items.get(i).setStatus(b);
+            }
+        });
     }
 
     @Override
