@@ -1,8 +1,9 @@
-package com.example.todolist_ramkumartextiles
+package com.example.todolist_ramkumartextiles.activity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.todolist_ramkumartextiles.R
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -16,10 +17,10 @@ class MainActivity : AppCompatActivity() {
         }
 
         butt_register.setOnClickListener {
-            startActivity(Intent(this,RegisterActivity::class.java))
+            startActivity(Intent(this, RegisterActivity::class.java))
         }
         butt_owners.setOnClickListener {
-            startActivity(Intent(this,ownersLogIn::class.java))
+            startActivity(Intent(this, ownersLogIn::class.java))
         }
     }
 }

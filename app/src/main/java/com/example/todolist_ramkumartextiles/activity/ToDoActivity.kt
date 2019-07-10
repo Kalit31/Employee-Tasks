@@ -1,19 +1,19 @@
-package com.example.todolist_ramkumartextiles
+package com.example.todolist_ramkumartextiles.activity
 
 import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.LinearLayout
-import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import com.example.todolist_ramkumartextiles.R
+import com.example.todolist_ramkumartextiles.adapters.RecycleAdapt
+import com.example.todolist_ramkumartextiles.models.TaskInformation
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_to_do.*
 
+@Suppress("RECEIVER_NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class ToDoActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
@@ -28,24 +28,26 @@ class ToDoActivity : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
 
-
+        val username = intent.getStringExtra("username").toString()
+        //val username = "Kalit"
         if(auth.currentUser == null)
         {
             finish()
             startActivity(Intent(applicationContext, LoginActivity::class.java))
         }
-        val user = auth.currentUser
-        val u = user!!.email.toString()
-        databaseReference = FirebaseDatabase.getInstance().getReference(u.split('@','.')[0])
 
+        databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(username).child("tasks")
 
-        textView.text = "Welcome  " + user.email!!.substringBefore('@')
+        //val user = auth.currentUser
+
+        textView.text = "Welcome  $username"
 
         logout.setOnClickListener {
             auth.signOut()
             finish()
             startActivity(Intent(applicationContext, LoginActivity::class.java))
         }
+
         databaseReference.addValueEventListener(object : ValueEventListener {
 
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -61,16 +63,13 @@ class ToDoActivity : AppCompatActivity() {
 
                 }
                 Toast.makeText(applicationContext,"Reached here", Toast.LENGTH_SHORT).show()
-                adapter = RecycleAdapt(items,applicationContext)
+                adapter = RecycleAdapt(items, applicationContext)
                 recyclerView.layoutManager = LinearLayoutManager(this@ToDoActivity)
-                //recyclerView.hasFixedSize() = true
                 recyclerView.adapter= adapter
 
             }
 
             override fun onCancelled(error: DatabaseError) {
-                // Failed to read value
-            //    Log.w(TAG, "Failed to read value.", error.toException())
                 Toast.makeText(applicationContext,error.toString(),Toast.LENGTH_SHORT).show()
             }
         })

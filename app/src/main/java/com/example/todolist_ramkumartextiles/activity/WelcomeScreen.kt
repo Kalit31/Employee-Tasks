@@ -1,10 +1,10 @@
-package com.example.todolist_ramkumartextiles
+package com.example.todolist_ramkumartextiles.activity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import androidx.core.os.postDelayed
+import com.example.todolist_ramkumartextiles.R
 
 class WelcomeScreen : AppCompatActivity() {
 
@@ -13,7 +13,7 @@ class WelcomeScreen : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_welcome_screen)
-        Handler().postDelayed(Runnable {
+        Handler().postDelayed({
             kotlin.run {
                 finish()
                 startActivity(Intent(applicationContext, MainActivity::class.java))

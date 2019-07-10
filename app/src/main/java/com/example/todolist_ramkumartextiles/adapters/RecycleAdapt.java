@@ -1,4 +1,4 @@
-package com.example.todolist_ramkumartextiles;
+package com.example.todolist_ramkumartextiles.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 import androidx.recyclerview.widget.RecyclerView;
+import com.example.todolist_ramkumartextiles.R;
+import com.example.todolist_ramkumartextiles.models.TaskInformation;
 
 import java.util.ArrayList;
 

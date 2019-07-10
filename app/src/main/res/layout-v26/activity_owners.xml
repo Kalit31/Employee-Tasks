@@ -21,7 +21,7 @@
             android:hint="@string/username"
             android:background="@drawable/edittext_design"
             android:padding="8dp"
-            tools:ignore="Autofill"/>
+            android:autofillHints=""/>
     <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -35,7 +35,7 @@
             android:hint="@string/password"
             android:background="@drawable/edittext_design"
             android:padding="8dp"
-            tools:ignore="Autofill,TextFields"/>
+            tools:ignore="TextFields"/>
     <Button
             android:text="@string/login"
             android:layout_width="wrap_content"
@@ -54,7 +54,7 @@
             android:src="@drawable/textile_img1"
             android:foregroundGravity="bottom"
             tools:layout_editor_absoluteX="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/guideline10" tools:ignore="ContentDescription"/>
+            app:layout_constraintBottom_toTopOf="@+id/guideline10"/>
 
     <androidx.constraintlayout.widget.Guideline
             android:layout_width="wrap_content"

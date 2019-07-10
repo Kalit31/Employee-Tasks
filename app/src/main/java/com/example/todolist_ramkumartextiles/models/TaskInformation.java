@@ -1,9 +1,9 @@
-package com.example.todolist_ramkumartextiles;
+package com.example.todolist_ramkumartextiles.models;
 
 public class TaskInformation
 {
-    public String employeeName, desc, date, taskId;
-    public Boolean status;
+    private String employeeName, desc, date, taskId;
+    private Boolean status;
 
     public TaskInformation() {
     }
