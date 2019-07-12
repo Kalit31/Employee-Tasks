@@ -15,7 +15,7 @@ import com.example.todolist_ramkumartextiles.R
 import com.example.todolist_ramkumartextiles.models.TaskInformation
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import kotlinx.android.synthetic.main.activity_task.*
+//import kotlinx.android.synthetic.main.activity_task.*
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -27,18 +27,18 @@ class TaskAct() : AppCompatActivity(){
     private lateinit var auth: FirebaseAuth
 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+  /*  override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_task)
 
-        var usersList = ArrayList<String>()
+            var usersList = ArrayList<String>()
 
-        auth = FirebaseAuth.getInstance()
-        var employeeName:String = ""
-        var dateString: String = ""
-        databaseReference = FirebaseDatabase.getInstance().getReference("Usernames")
+            auth = FirebaseAuth.getInstance()
+            var employeeName:String = ""
+            var dateString: String = ""
+            databaseReference = FirebaseDatabase.getInstance().getReference("Usernames")
 
-        usersList.add("Select Employee")
+            usersList.add("Select Employee")
 
         databaseReference.addValueEventListener(object : ValueEventListener {
 
@@ -120,5 +120,5 @@ class TaskAct() : AppCompatActivity(){
             logoutEdit.apply()
             startActivity(Intent(applicationContext, MainActivity::class.java))
         }
-    }
+    }*/
 }

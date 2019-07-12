@@ -7,8 +7,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
 import android.widget.Toast
+import com.example.todolist_ramkumartextiles.OwnersAct
 import com.example.todolist_ramkumartextiles.R
-import kotlinx.android.synthetic.main.activity_owners.*
+import kotlinx.android.synthetic.main.activity_owners_login.*
 
 class ownersLogIn : AppCompatActivity() {
 
@@ -16,14 +17,14 @@ class ownersLogIn : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_owners)
+        setContentView(R.layout.activity_owners_login)
 
         var sharedPreferences = getSharedPreferences("LoginPref", Context.MODE_PRIVATE)
 
         if (sharedPreferences.getBoolean("login",false))
         {
             finish()
-            startActivity(Intent(applicationContext, TaskAct::class.java))
+            startActivity(Intent(applicationContext, OwnersAct::class.java))
         }
 
 
@@ -43,7 +44,7 @@ class ownersLogIn : AppCompatActivity() {
                     val edit:SharedPreferences.Editor = sharedPreferences.edit()
                     edit.putBoolean("login",true)
                     edit.apply()
-                    startActivity(Intent(applicationContext, TaskAct::class.java))
+                    startActivity(Intent(applicationContext, OwnersAct::class.java))
                 }
                 else {
 
