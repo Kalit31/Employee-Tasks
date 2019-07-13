@@ -21,7 +21,7 @@ class OwnersAct : AppCompatActivity() {
                 selectedFragment = StatusFrag()
               }
             R.id.location->{
-                selectedFragment = AssignTaskFrag()
+                selectedFragment = MapsFrag()
               }
         }
 
