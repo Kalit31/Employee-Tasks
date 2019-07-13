@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.widget.Toast
 import com.example.todolist_ramkumartextiles.R
+import com.example.todolist_ramkumartextiles.models.EmployeeStatus
 import com.example.todolist_ramkumartextiles.models.UsersInformation
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
@@ -48,12 +49,10 @@ class RegisterActivity : AppCompatActivity() {
                         auth.createUserWithEmailAndPassword(email, password)
                             .addOnCompleteListener(this) { task ->
                                 if (task.isSuccessful) {
-                                    // Sign in success, update UI with the signed-in user's information
                                     Toast.makeText(
                                         baseContext, "Authentication success",
                                         Toast.LENGTH_SHORT
                                     ).show()
-                                    //val userId = databaseReference.push().key
                                     val userInfo: UsersInformation =
                                         UsersInformation(
                                             username,
@@ -62,10 +61,10 @@ class RegisterActivity : AppCompatActivity() {
                                         )
                                     databaseReference.child(username).setValue(userInfo)
                                     var ref = FirebaseDatabase.getInstance().getReference("Usernames")
-                                    val id = ref.push().key
+                                    var id = ref.push().key
                                     ref.child(id!!).setValue(username)
+                                    databaseReference.child(username).child("count").setValue(0)
                                 } else {
-                                    // If sign in fails, display a message to the user.
                                     Toast.makeText(
                                         baseContext, "Authentication failed.",
                                         Toast.LENGTH_SHORT

@@ -62,7 +62,9 @@ class ToDoActivity : AppCompatActivity() {
                     }
 
                 }
-                Toast.makeText(applicationContext,"Reached here", Toast.LENGTH_SHORT).show()
+                var c = items.size
+                var myRef = FirebaseDatabase.getInstance().getReference("Users").child(username)
+                myRef.child("count").setValue(c)
                 adapter = RecycleAdapt(items, applicationContext)
                 recyclerView.layoutManager = LinearLayoutManager(this@ToDoActivity)
                 recyclerView.adapter= adapter
@@ -84,6 +86,8 @@ class ToDoActivity : AppCompatActivity() {
                 }
 
             }
+
+
         }
     }
 }
