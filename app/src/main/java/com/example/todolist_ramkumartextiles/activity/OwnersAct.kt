@@ -1,8 +1,12 @@
-package com.example.todolist_ramkumartextiles
+package com.example.todolist_ramkumartextiles.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import com.example.todolist_ramkumartextiles.R
+import com.example.todolist_ramkumartextiles.fragment.AssignTaskFrag
+import com.example.todolist_ramkumartextiles.fragment.MapsFrag
+import com.example.todolist_ramkumartextiles.fragment.StatusFrag
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_owners.*
 
@@ -20,7 +24,7 @@ class OwnersAct : AppCompatActivity() {
             R.id.status ->{
                 selectedFragment = StatusFrag()
               }
-            R.id.location->{
+            R.id.location ->{
                 selectedFragment = MapsFrag()
               }
         }

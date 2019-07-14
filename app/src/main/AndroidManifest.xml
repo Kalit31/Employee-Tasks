@@ -7,11 +7,10 @@
     <dist:module dist:instant="true"/>
 
     <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <permission android:name="com.example.todolist_ramkumartextiles.MAPS_RECIEVE"
                 android:protectionLevel="signature"/>
     <uses-permission android:name="com.example.todolist_ramkumartextiles.MAPS_RECIEVE"/>
@@ -26,7 +25,7 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-        <activity android:name=".OwnersAct">
+        <activity android:name=".activity.OwnersAct">
         </activity>
         <activity android:name=".activity.TaskAct">
         </activity>

@@ -1,4 +1,4 @@
-package com.example.todolist_ramkumartextiles
+package com.example.todolist_ramkumartextiles.fragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,12 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.todolist_ramkumartextiles.R
 import com.example.todolist_ramkumartextiles.adapters.RecycleAdaptStatus
 import com.example.todolist_ramkumartextiles.models.EmployeeStatus
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.fragment_status.view.*
 import kotlin.collections.ArrayList
+
 
 class StatusFrag : Fragment() {
 
@@ -38,7 +40,7 @@ class StatusFrag : Fragment() {
                 employeeList.clear()
                 for (ds in dataSnapshot.children) {
                     val user:EmployeeStatus? = ds.getValue(EmployeeStatus::class.java)
-                   employeeStatusList.add(user!!)
+                    employeeStatusList.add(user!!)
                 }
                 adapter = RecycleAdaptStatus(employeeStatusList)
                 view.recyclerView_status.layoutManager = LinearLayoutManager(context)
@@ -50,4 +52,29 @@ class StatusFrag : Fragment() {
         })
         return view
     }
+    private fun readUsers(firebaseCallback: FirebaseCallback) {
+        var ref = FirebaseDatabase.getInstance().getReference("Usernames")
+        ref.addValueEventListener(object : ValueEventListener {
+
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                employeeList.clear()
+                for (ds in dataSnapshot.children) {
+                    val user = ds.getValue(String::class.java)
+                    if (user != null) {
+                        employeeList.add(user)
+                    }
+                }
+                firebaseCallback.onCallback(employeeList)
+            }
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(context, error.toString(), Toast.LENGTH_SHORT).show()
+            }
+        })
+
+    }
+
+    private interface FirebaseCallback{
+        fun onCallback(list:ArrayList<String>)
+    }
+    /**/
 }
