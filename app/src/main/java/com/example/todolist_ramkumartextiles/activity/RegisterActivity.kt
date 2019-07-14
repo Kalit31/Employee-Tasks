@@ -1,5 +1,7 @@
 package com.example.todolist_ramkumartextiles.activity
 
+import android.content.Context
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
@@ -60,10 +62,15 @@ class RegisterActivity : AppCompatActivity() {
                                             password
                                         )
                                     databaseReference.child(username).setValue(userInfo)
-                                    var ref = FirebaseDatabase.getInstance().getReference("Usernames")
+                                    val ref = FirebaseDatabase.getInstance().getReference("Usernames")
                                     var id = ref.push().key
                                     ref.child(id!!).setValue(username)
                                     databaseReference.child(username).child("count").setValue(0)
+                                    var sharedPreferences = getSharedPreferences("LoginPref", Context.MODE_PRIVATE)
+                                    val edit: SharedPreferences.Editor = sharedPreferences.edit()
+                                    edit.putString("username", username)
+                                    edit.putBoolean("LoginStatus",true)
+                                    edit.apply()
                                 } else {
                                     Toast.makeText(
                                         baseContext, "Authentication failed.",

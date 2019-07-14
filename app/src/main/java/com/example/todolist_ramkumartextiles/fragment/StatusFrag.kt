@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.todolist_ramkumartextiles.R
 import com.example.todolist_ramkumartextiles.adapters.RecycleAdaptStatus
 import com.example.todolist_ramkumartextiles.models.EmployeeStatus
@@ -43,7 +44,7 @@ class StatusFrag : Fragment() {
                     employeeStatusList.add(user!!)
                 }
                 adapter = RecycleAdaptStatus(employeeStatusList)
-                view.recyclerView_status.layoutManager = LinearLayoutManager(context)
+                view.recyclerView_status.layoutManager = LinearLayoutManager(context) as RecyclerView.LayoutManager?
                 view.recyclerView_status.adapter= adapter
             }
             override fun onCancelled(error: DatabaseError) {

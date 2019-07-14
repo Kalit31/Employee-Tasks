@@ -19,7 +19,7 @@
                   android:required="true"/>
 
     <application
-            android:icon="@mipmap/ic_launcher"
+            android:icon="@mipmap/app_logo"
             android:label="@string/app_name"
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
@@ -51,6 +51,7 @@
                    android:value="AIzaSyDPi70utmreC0KrT99ispH5QtT3AcQkhds"/>
         <meta-data android:name="com.google.android.gms.version"
                    android:value="@integer/google_play_services_version" />
+        <meta-data android:name="preloaded_fonts" android:resource="@array/preloaded_fonts"/>
     </application>
 
 

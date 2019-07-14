@@ -12,27 +12,34 @@
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.1">
+            android:layout_weight="0.1"
+            android:background="@drawable/design_basic"
+    >
         <TextView android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
+                  android:layout_height="match_parent"
                   android:text="Employee"
-                  android:gravity="left"
+                  android:paddingLeft="8dp"
+                  android:textSize="20sp"
+                  android:gravity="left|center"
                   android:layout_weight="0.6"
-                  android:textColor="@color/colorAccent"
+                  android:textColor="#0B70C2"
                   android:layout_gravity="center"
-                  tools:ignore="NestedWeights,RtlHardcoded"/>
+                  tools:ignore="NestedWeights,RtlHardcoded,RtlSymmetry"/>
 
         <TextView android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
+                  android:layout_height="match_parent"
                   android:text="Tasks Remaining"
-                  android:gravity="right"
-                  android:textColor="@color/colorAccent"
+                  android:textSize="20sp"
+                  android:paddingRight="8dp"
+                  android:gravity="right|center"
+                  android:textColor="#0B70C2"
                   android:layout_gravity="center"
                   android:layout_weight="0.4"
-                  tools:ignore="RtlHardcoded"/>
+                  tools:ignore="RtlHardcoded,RtlSymmetry"/>
 
     </LinearLayout>
     <androidx.recyclerview.widget.RecyclerView
+            android:paddingTop="16dp"
             android:id="@+id/recyclerView_status"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

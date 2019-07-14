@@ -22,12 +22,11 @@ class LoginActivity : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
 
-        if(auth.currentUser != null)
-        {
+        if (auth.currentUser != null) {
             finish()
             val todDoIntent = Intent(applicationContext, ToDoActivity::class.java)
-            var sharedPreferences = getSharedPreferences("LoginPref", Context.MODE_PRIVATE)
-            todDoIntent.putExtra("username",sharedPreferences.getString("username",""))
+            val sharedPreferences = getSharedPreferences("LoginPref", Context.MODE_PRIVATE)
+            todDoIntent.putExtra("username", sharedPreferences.getString("username", ""))
             startActivity(todDoIntent)
         }
 
@@ -35,34 +34,31 @@ class LoginActivity : AppCompatActivity() {
             val username = etUsernameL.text.toString()
             val email = emailL.text.toString()
             val password = etPasswordL.text.toString()
-            //
-            if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)|| TextUtils.isEmpty((username)))
-            {
-                Toast.makeText(applicationContext,"Please enter all details", Toast.LENGTH_SHORT).show()
-            }
-            else{
+            if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password) || TextUtils.isEmpty((username))) {
+                Toast.makeText(applicationContext, "Please enter all details", Toast.LENGTH_SHORT).show()
+            } else {
                 auth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this) { task ->
                         if (task.isSuccessful) {
                             // Sign in success, update UI with the signed-in user's information
                             finish()
-                            var sharedPreferences = getSharedPreferences("LoginPref", Context.MODE_PRIVATE)
+                            val sharedPreferences = getSharedPreferences("LoginPref", Context.MODE_PRIVATE)
                             val edit: SharedPreferences.Editor = sharedPreferences.edit()
                             edit.putString("username", username)
+                            edit.putBoolean("LoginStatus", true)
                             edit.apply()
                             val todDoIntent = Intent(applicationContext, ToDoActivity::class.java)
-                            todDoIntent.putExtra("username",username)
+                            todDoIntent.putExtra("username", username)
                             startActivity(todDoIntent)
 
                         } else {
-                            // If sign in fails, display a message to the user.
-
-                            Toast.makeText(baseContext, "Login failed.",
-                                Toast.LENGTH_SHORT).show()
+                            Toast.makeText(
+                                baseContext, "Login failed.",
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
                     }
             }
         }
-
     }
 }
