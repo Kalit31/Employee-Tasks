@@ -17,7 +17,7 @@
             android:layout_marginLeft="8dp"
             android:layout_weight="0.1"
             android:id="@+id/status"
-            android:buttonTint="#B3F44336"
+            android:buttonTint="@color/colorPrimaryDark"
             android:layout_marginStart="8dp" tools:targetApi="lollipop"/>
 
         <TextView
@@ -28,7 +28,7 @@
                 android:padding="8dp"
                 android:layout_gravity="center"
                 android:text="@string/task"
-                android:textColor="#2196F3"
+                android:textColor="@color/colorPrimary"
                 android:id="@+id/tV_task"
                 android:textStyle="bold"
                 android:textSize="25sp"/>

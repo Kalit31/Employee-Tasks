@@ -1,5 +1,8 @@
 package com.example.todolist_ramkumartextiles.activity
 
+import android.content.Context
+import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -40,6 +43,15 @@ class OwnersAct : AppCompatActivity() {
          bottom_nav.setOnNavigationItemSelectedListener (mOnNavigationItemSelectedListener)
         val startFrag = AssignTaskFrag()
         supportFragmentManager.beginTransaction().replace(R.id.fragment_container, startFrag).commit()
+
+        logout_owners.setOnClickListener {
+            var sharedPreferences = getSharedPreferences("LoginPref", Context.MODE_PRIVATE)
+            val edit: SharedPreferences.Editor = sharedPreferences.edit()
+            edit.putBoolean("login",false)
+            edit.apply()
+            finish()
+            startActivity(Intent(applicationContext, MainActivity::class.java))
+        }
     }
 
    }

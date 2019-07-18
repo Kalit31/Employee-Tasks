@@ -3,11 +3,13 @@ package com.example.todolist_ramkumartextiles.activity
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
 import android.widget.Toast
 import com.example.todolist_ramkumartextiles.R
+import com.example.todolist_ramkumartextiles.services.LocationService
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_login.*
 
@@ -15,10 +17,12 @@ class LoginActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
     private var username = null
+    private lateinit var sharedPreferences:SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+        sharedPreferences = getSharedPreferences("LoginPref", Context.MODE_PRIVATE)
 
         auth = FirebaseAuth.getInstance()
 
@@ -29,6 +33,8 @@ class LoginActivity : AppCompatActivity() {
             todDoIntent.putExtra("username", sharedPreferences.getString("username", ""))
             startActivity(todDoIntent)
         }
+
+
 
         login.setOnClickListener {
             val username = etUsernameL.text.toString()
@@ -42,7 +48,6 @@ class LoginActivity : AppCompatActivity() {
                         if (task.isSuccessful) {
                             // Sign in success, update UI with the signed-in user's information
                             finish()
-                            val sharedPreferences = getSharedPreferences("LoginPref", Context.MODE_PRIVATE)
                             val edit: SharedPreferences.Editor = sharedPreferences.edit()
                             edit.putString("username", username)
                             edit.putBoolean("LoginStatus", true)

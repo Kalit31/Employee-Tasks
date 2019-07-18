@@ -1,12 +1,9 @@
 package com.example.todolist_ramkumartextiles.activity
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
-import android.location.Location
-import android.location.LocationManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -14,33 +11,25 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.todolist_ramkumartextiles.R
-import com.google.android.gms.common.ConnectionResult
-import com.google.android.gms.common.api.GoogleApiClient
-import com.google.android.gms.location.LocationRequest
-import com.google.android.gms.location.LocationServices
-import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_main.*
+import com.example.todolist_ramkumartextiles.services.GPSTracker
+import com.example.todolist_ramkumartextiles.services.LocationService
 
-class MainActivity : AppCompatActivity(), GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener {
 
-    private lateinit var lat:String
-    private lateinit var long:String
-    private var username:String = ""
-    private var mGoogleApiClient: GoogleApiClient? = null
-    private var mLocation: Location? = null
-    private var mLocationManager: LocationManager? = null
-    private var mLocationRequest: LocationRequest? = null
-    private val listener: com.google.android.gms.location.LocationListener? = null
-    private val UPDATE_INTERVAL = (2 * 1000).toLong()  /* 10 secs */
-    private val FASTEST_INTERVAL: Long = 2000 /* 2 sec */
-    private var locationManager: LocationManager? = null
+class MainActivity : AppCompatActivity() {
 
+    private lateinit var sharedPreferences: SharedPreferences
+
+    private fun requestLocationPermission() {
+        ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION), 1)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         Log.d("test","onCreate")
 
+        sharedPreferences = getSharedPreferences("LoginPref", Context.MODE_PRIVATE)
         if(ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
         {
             requestLocationPermission()
@@ -51,116 +40,84 @@ class MainActivity : AppCompatActivity(), GoogleApiClient.ConnectionCallbacks, G
         }
 
         butt_register.setOnClickListener {
+
             startActivity(Intent(this, RegisterActivity::class.java))
         }
         butt_owners.setOnClickListener {
+
             startActivity(Intent(this, ownersLogIn::class.java))
-            if (mGoogleApiClient!!.isConnected) {
-                mGoogleApiClient!!.disconnect()
-            }
+
+        }
+        if(sharedPreferences.getBoolean("LoginStatus",false)) {
+            val intent = Intent(this, LocationService::class.java)
+            startService(intent)
         }
 
-        var sharedPreferences = getSharedPreferences("LoginPref", Context.MODE_PRIVATE)
-        if(sharedPreferences.getBoolean("LoginStatus",false))
-         {
-           username = sharedPreferences.getString("username","").toString()
-           mGoogleApiClient = GoogleApiClient.Builder(this)
-                  .addConnectionCallbacks(this)
-                  .addOnConnectionFailedListener(this)
-                  .addApi(LocationServices.API)
-                  .build()
-
-           mLocationManager = this.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-         }
     }
 
-    private fun requestLocationPermission()
-    {
-        ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),1)
-    }
-   private val isLocationEnabled: Boolean
-        get() {
-            locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
-            return locationManager!!.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager!!.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
-        }
 
-    override fun onConnected(p0: Bundle?) {
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return
-        }
-        startLocationUpdates()
-        mLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient)
-
-        if (mLocation == null) {
-            startLocationUpdates()
-        }
-        if (mLocation != null) {
-        } else {
-            Toast.makeText(this, "Location not Detected", Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    override fun onConnectionSuspended(i: Int) {
-        mGoogleApiClient!!.connect()
-    }
-
-    override fun onConnectionFailed(connectionResult: ConnectionResult) {
-    }
-
-    override fun onStart() {
+   override fun onStart() {
         super.onStart()
         Log.d("test","onStart")
-        if (mGoogleApiClient != null) {
-            mGoogleApiClient!!.connect()
-        }
-    }
+   }
 
-    override fun onPause() {
+   override fun onResume() {
+        super.onResume()
+       if(sharedPreferences.getBoolean("LoginStatus",false)) {
+           val intent = Intent(this, LocationService::class.java)
+           startService(intent)
+       }
+       else
+       {
+            val intent = Intent(this, LocationService::class.java)
+            stopService(intent)
+       }
+
+   }
+   override fun onPause() {
         super.onPause()
         Log.d("test","onPause")
-        if (mGoogleApiClient != null) {
-            mGoogleApiClient!!.connect()
-        }
-    }
-  override fun onStop(){
-      super.onStop()
-      Log.d("test","onStop")
-      if (mGoogleApiClient != null) {
-          mGoogleApiClient!!.connect()
-      }
-
-  }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.d("test","onDestroy")
-        if (mGoogleApiClient!!.isConnected()) {
-            mGoogleApiClient!!.disconnect()
-        }
-
-    }
-
-    @SuppressLint("MissingPermission")
-    protected fun startLocationUpdates() {
-        // Create the location request
-        mLocationRequest = LocationRequest.create()
-            .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
-            .setInterval(UPDATE_INTERVAL)
-            .setFastestInterval(FASTEST_INTERVAL)
-        // Request location updates
-        if (ActivityCompat.checkSelfPermission(this,android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
-            return
-        }
-        LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient,
-            mLocationRequest, this)
-        Log.d("reque", "--->>>>")
-    }
-    override fun onLocationChanged(location: Location) {
-        lat = location.latitude.toString()
-        long = location.longitude.toString()
-        var refLocation = FirebaseDatabase.getInstance().getReference("Users").child(username)
-        refLocation.child("latitude").setValue(lat)
-        refLocation.child("longitude").setValue(long)
-    }
+   }
 }
+
+
+
+
+//if(sharedPreferences.getBoolean("LoginStatus",false))
+//        {
+//            val intent = Intent(this, LocationService::class.java)
+//            startService(intent)
+//        }
+//        else{
+//            val intent = Intent(this, LocationService::class.java)
+//            stopService(intent)
+//        }
+
+
+
+
+
+//        if(sharedPreferences.getBoolean("LoginStatus",false))
+//         {
+//           username = sharedPreferences.getString("username","").toString()
+//           mGoogleApiClient = GoogleApiClient.Builder(this)
+//                  .addConnectionCallbacks(this)
+//                  .addOnConnectionFailedListener(this)
+//                  .addApi(LocationServices.API)
+//                  .build()
+//
+//           mLocationManager = this.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+//         }
+
+//            if(sharedPreferences.getBoolean("LoginStatus",false)) {
+//                if (mGoogleApiClient!!.isConnected()) {
+//                    mGoogleApiClient!!.disconnect()
+//                }
+//            }
+
+
+//        if (mGoogleApiClient != null) {
+//            mGoogleApiClient!!.connect()
+//        }
+
+//, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener

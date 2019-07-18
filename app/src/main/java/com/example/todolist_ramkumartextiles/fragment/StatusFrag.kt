@@ -24,6 +24,7 @@ class StatusFrag : Fragment() {
     private var employeeList = ArrayList<String>()
     private var employeeStatusList = ArrayList<EmployeeStatus>()
     private lateinit var adapter: RecycleAdaptStatus
+    private var uploadedUser = ArrayList<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,7 +42,10 @@ class StatusFrag : Fragment() {
                 employeeList.clear()
                 for (ds in dataSnapshot.children) {
                     val user:EmployeeStatus? = ds.getValue(EmployeeStatus::class.java)
-                    employeeStatusList.add(user!!)
+                    if(!(user!!.employee in uploadedUser)) {
+                        employeeStatusList.add(user!!)
+                        uploadedUser.add(user.employee)
+                    }
                 }
                 adapter = RecycleAdaptStatus(employeeStatusList)
                 view.recyclerView_status.layoutManager = LinearLayoutManager(context) as RecyclerView.LayoutManager?
@@ -77,5 +81,4 @@ class StatusFrag : Fragment() {
     private interface FirebaseCallback{
         fun onCallback(list:ArrayList<String>)
     }
-    /**/
 }

@@ -25,28 +25,37 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-        <activity android:name=".activity.OwnersAct">
+        <activity android:name=".activity.OwnersAct"
+                  android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".activity.TaskAct">
+        <activity android:name=".activity.TaskAct"
+                  android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".activity.ownersLogIn">
+        <activity android:name=".activity.ownersLogIn"
+                  android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".activity.WelcomeScreen">
+        <activity android:name=".activity.WelcomeScreen"
+                  android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".activity.ToDoActivity">
+        <activity android:name=".activity.ToDoActivity"
+                  android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".activity.RegisterActivity">
+        <activity android:name=".activity.RegisterActivity"
+                  android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".activity.LoginActivity">
+        <activity android:name=".activity.LoginActivity"
+                  android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".activity.MainActivity">
+        <activity android:name=".activity.MainActivity"
+                  android:screenOrientation="portrait">
         </activity>
-
+        <service android:name=".services.LocationService"
+                 android:exported="false"/>
         <meta-data android:name="com.google.android.maps.v2.API_KEY"
                    android:value="AIzaSyDPi70utmreC0KrT99ispH5QtT3AcQkhds"/>
         <meta-data android:name="com.google.android.gms.version"

@@ -53,6 +53,7 @@ class MapsFrag : Fragment(),OnMapReadyCallback{
             override fun onCallback(list: ArrayList<String>) {
                 for(user in list) {
                     var refLoc = FirebaseDatabase.getInstance().getReference("Users").child(user)
+                    var markerList=ArrayList<Marker>()
                     refLoc.addValueEventListener(object: ValueEventListener
                     {
                         override fun onCancelled(p0: DatabaseError) {
@@ -61,6 +62,10 @@ class MapsFrag : Fragment(),OnMapReadyCallback{
                         override fun onDataChange(dataSnapshot: DataSnapshot) {
                             var lat:Double = 0.0
                             var lng:Double = 0.0
+                            for(m in markerList)
+                            {
+                                m.remove()
+                            }
                           for(ds in dataSnapshot.children)
                           {
                             if(ds.key == "latitude")
@@ -70,9 +75,8 @@ class MapsFrag : Fragment(),OnMapReadyCallback{
                           }
                           Log.d("lat/lng",lat.toString()+lng.toString())
                           val latlng = LatLng(lat, lng)
-                          googleMap.addMarker(MarkerOptions().position(latlng).title(user))
-                          var cameraPosition = CameraPosition.Builder().target(latlng).zoom(12f).build()
-                          googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
+                          val marker = googleMap.addMarker(MarkerOptions().position(latlng).title(user))
+                            markerList.add(marker)
                         }
                     })
                 }

@@ -16,9 +16,11 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.todolist_ramkumartextiles.R
 import com.example.todolist_ramkumartextiles.adapters.RecycleAdapt
 import com.example.todolist_ramkumartextiles.models.TaskInformation
+import com.example.todolist_ramkumartextiles.services.LocationService
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -39,6 +41,7 @@ class ToDoActivity : AppCompatActivity() {
     private var items = ArrayList<TaskInformation>()
     private lateinit var adapter : RecycleAdapt
     private lateinit var username:String
+    private lateinit var sharedPreferences:SharedPreferences
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,6 +49,13 @@ class ToDoActivity : AppCompatActivity() {
         setContentView(R.layout.activity_to_do)
 
         auth = FirebaseAuth.getInstance()
+        sharedPreferences = getSharedPreferences("LoginPref", Context.MODE_PRIVATE)
+
+        if(sharedPreferences.getBoolean("LoginStatus",false)) {
+            val intent = Intent(this, LocationService::class.java)
+            startService(intent)
+        }
+
 
         this.username = intent.getStringExtra("username").toString()
         //val username = "Kalit"
@@ -61,12 +71,15 @@ class ToDoActivity : AppCompatActivity() {
 
         logout.setOnClickListener {
             auth.signOut()
-            finish()
+
             startActivity(Intent(applicationContext, LoginActivity::class.java))
-            var sharedPreferences = getSharedPreferences("LoginPref", Context.MODE_PRIVATE)
+
             val edit: SharedPreferences.Editor = sharedPreferences.edit()
             edit.putBoolean("LoginStatus",false)
             edit.apply()
+            val intent = Intent(this,LocationService::class.java)
+            stopService(intent)
+            finish()
         }
 
         databaseReference.addValueEventListener(object : ValueEventListener {
@@ -85,7 +98,7 @@ class ToDoActivity : AppCompatActivity() {
                 var myRef = FirebaseDatabase.getInstance().getReference("Users").child(username)
                 myRef.child("count").setValue(c)
                 adapter = RecycleAdapt(items, applicationContext)
-                recyclerView.layoutManager = LinearLayoutManager(this@ToDoActivity)
+                recyclerView.layoutManager = LinearLayoutManager(this@ToDoActivity) as RecyclerView.LayoutManager?
                 recyclerView.adapter= adapter
             }
             override fun onCancelled(error: DatabaseError) {
