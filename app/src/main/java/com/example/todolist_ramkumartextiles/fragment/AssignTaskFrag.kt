@@ -1,5 +1,6 @@
 package com.example.todolist_ramkumartextiles.fragment
 
+import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.os.Bundle
 import android.text.TextUtils
@@ -30,6 +31,7 @@ class AssignTaskFrag : Fragment() {
         super.onCreate(savedInstanceState)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
         val view =  inflater.inflate(R.layout.fragment_assign_task, container, false)
@@ -98,6 +100,9 @@ class AssignTaskFrag : Fragment() {
             {
                 Toast.makeText(context,"Incomplete Task", Toast.LENGTH_SHORT).show()
             }
+            else if(employeeName == "Select Employee"){
+                Toast.makeText(context,"Please select an employee",Toast.LENGTH_SHORT).show()
+            }
             else
             {
                 databaseReference = FirebaseDatabase.getInstance().getReference("Users")
@@ -111,88 +116,11 @@ class AssignTaskFrag : Fragment() {
                         taskId
                     )
                 databaseReference.child(employeeName).child("tasks").child(taskId!!).setValue(taskInfo)
-
+                desc.setText("")
+                tV_dateA.text = "Date"
                 Toast.makeText(context,"Uploaded Task", Toast.LENGTH_SHORT).show()
             }
         }
         return view
     }
 }
-
-
-
-/*myRef.addValueEventListener(object : ValueEventListener {
-
-                    override fun onDataChange(dataSnapshot: DataSnapshot) {
-                        // whenever data at this location is updated.
-                        for (ds in dataSnapshot.children) {
-                            val t = ds.getValue(EmployeeStatus::class.java)
-                            if(t!!.employee == employeeName)
-                            {
-                                val task = EmployeeStatus(employeeName,t.count + 1,t.id)
-                                myRef.child(t.id).setValue(task)
-                            }
-                        }
-                    }
-
-                    override fun onCancelled(error: DatabaseError) {
-                        Toast.makeText(context, error.toString(), Toast.LENGTH_SHORT).show()
-                    }
-                })*/
-
-/*    myRef.addValueEventListener(object : ValueEventListener {
-                    var c: Int = 0
-                    var id: String = ""
-                    override fun onDataChange(dataSnapshot: DataSnapshot) {
-                        // whenever data at this location is updated.
-                        for (ds in dataSnapshot.children) {
-                            var t = ds.getValue(EmployeeStatus::class.java)
-                            if(t!!.employee == employeeName)
-                            {
-                               myRef.child(employeeName).child("count").setValue(t.count+1)
-                                break
-                            }
-                        }
-
-                    }
-                    override fun onCancelled(error: DatabaseError) {
-                        Toast.makeText(context, error.toString(), Toast.LENGTH_SHORT).show()
-                    }
-                })*/
-/*var myRef = FirebaseDatabase.getInstance().getReference("EmployeeStats")
-                var c : Int
-                readCount(object: FirebaseCallback{
-                    override fun onCallback(count: Int) {
-                        c = count
-                        myRef.child(employeeName).child("count").setValue(c+1)
-                    }
-                })*/
-/*
-    private fun readCount(firebasecallback: FirebaseCallback)
-    {
-        val myRef = FirebaseDatabase.getInstance().getReference("EmployeeStats")
-        myRef.addValueEventListener(object : ValueEventListener {
-            var c: Int = 0
-            var id: String = ""
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                // whenever data at this location is updated.
-                for (ds in dataSnapshot.children) {
-                    var t = ds.getValue(EmployeeStatus::class.java)
-                    if(t!!.employee == employeeName)
-                    {
-                        c = t.count
-                     }
-                }
-                firebasecallback.onCallback(c)
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(context, error.toString(), Toast.LENGTH_SHORT).show()
-            }
-        })
-
-    }
-
-    private interface FirebaseCallback{
-        fun onCallback(count: Int)
-    }*/

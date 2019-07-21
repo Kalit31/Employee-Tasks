@@ -47,7 +47,7 @@ class StatusFrag : Fragment() {
                         uploadedUser.add(user.employee)
                     }
                 }
-                adapter = RecycleAdaptStatus(employeeStatusList)
+                adapter = RecycleAdaptStatus(employeeStatusList,context)
                 view.recyclerView_status.layoutManager = LinearLayoutManager(context) as RecyclerView.LayoutManager?
                 view.recyclerView_status.adapter= adapter
             }
