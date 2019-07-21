@@ -3,15 +3,11 @@ package com.example.todolist_ramkumartextiles.activity
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
 import android.widget.Toast
 import com.example.todolist_ramkumartextiles.R
-import com.example.todolist_ramkumartextiles.services.LocationService
-import com.google.android.gms.tasks.Task
-import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -35,7 +31,7 @@ class LoginActivity : AppCompatActivity() {
 
         if (auth.currentUser != null) {
             finish()
-            val todDoIntent = Intent(applicationContext, ToDoActivity::class.java)
+            val todDoIntent = Intent(applicationContext, EmployeeActivity::class.java)
             val sharedPreferences = getSharedPreferences("LoginPref", Context.MODE_PRIVATE)
             todDoIntent.putExtra("username", sharedPreferences.getString("username", ""))
             startActivity(todDoIntent)
@@ -76,7 +72,7 @@ class LoginActivity : AppCompatActivity() {
                             edit.putString("username", username)
                             edit.putBoolean("LoginStatus", true)
                             edit.apply()
-                            val todDoIntent = Intent(applicationContext, ToDoActivity::class.java)
+                            val todDoIntent = Intent(applicationContext, EmployeeActivity::class.java)
                             todDoIntent.putExtra("username", username)
                             startActivity(todDoIntent)
 
@@ -116,7 +112,7 @@ class LoginActivity : AppCompatActivity() {
 //                            edit.putString("username", username)
 //                            edit.putBoolean("LoginStatus", true)
 //                            edit.apply()
-//                            val todDoIntent = Intent(applicationContext, ToDoActivity::class.java)
+//                            val todDoIntent = Intent(applicationContext, EmployeeActivity::class.java)
 //                            todDoIntent.putExtra("username", username)
 //                            startActivity(todDoIntent)
 //

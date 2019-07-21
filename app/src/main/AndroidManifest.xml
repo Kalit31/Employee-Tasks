@@ -51,7 +51,7 @@
             </intent-filter>
         </activity>
         <activity
-                android:name=".activity.ToDoActivity"
+                android:name=".activity.EmployeeActivity"
                 android:screenOrientation="portrait">
         </activity>
         <activity

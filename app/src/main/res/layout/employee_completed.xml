@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools" android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="90dp"
+>
+
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:orientation="horizontal"
+            android:background="@drawable/edittext_design">
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.65"
+                android:gravity="center"
+                android:padding="8dp"
+                android:layout_gravity="center"
+                android:text="@string/task"
+                android:textColor="@color/colorPrimary"
+                android:id="@+id/tV_task_completed"
+                android:textStyle="bold"
+                android:textSize="25sp"/>
+
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="match_parent"
+                  android:layout_weight="0.25"
+                  android:gravity="right|center"
+                  android:layout_marginRight="16dp"
+                  android:id="@+id/tV_date_completed"
+                  android:text="@string/date" android:textColor="#000000" android:layout_marginEnd="16dp"
+                  tools:ignore="RtlHardcoded"/>
+    </LinearLayout>
+    <TextView android:layout_width="match_parent"
+              android:layout_height="10dp"/>
+
+</LinearLayout>

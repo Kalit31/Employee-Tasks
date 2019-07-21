@@ -37,7 +37,7 @@ import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_to_do.*
 
 @Suppress("RECEIVER_NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
-class ToDoActivity : AppCompatActivity() {
+class EmployeeActivity : AppCompatActivity() {
 
 
     private lateinit var auth: FirebaseAuth

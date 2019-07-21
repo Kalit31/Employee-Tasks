@@ -73,14 +73,16 @@ class ToDoFrag : Fragment() {
         v.updateTask.setOnClickListener {
             for(item in this.items)
             {
-                if(item.getStatus())
+                if(item.status)
                 {
                     val ref = databaseReference.child(item.getTaskId())
+                    val newRef = FirebaseDatabase.getInstance().getReference("Completed")
+                    val taskId = newRef.push().key
+                    newRef.child(username).child(taskId!!).setValue(item)
                     ref.removeValue()
                 }
             }
         }
-
         return v
     }
 
