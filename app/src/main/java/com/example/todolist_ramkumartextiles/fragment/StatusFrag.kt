@@ -57,28 +57,4 @@ class StatusFrag : Fragment() {
         })
         return view
     }
-    private fun readUsers(firebaseCallback: FirebaseCallback) {
-        var ref = FirebaseDatabase.getInstance().getReference("Usernames")
-        ref.addValueEventListener(object : ValueEventListener {
-
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                employeeList.clear()
-                for (ds in dataSnapshot.children) {
-                    val user = ds.getValue(String::class.java)
-                    if (user != null) {
-                        employeeList.add(user)
-                    }
-                }
-                firebaseCallback.onCallback(employeeList)
-            }
-            override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(context, error.toString(), Toast.LENGTH_SHORT).show()
-            }
-        })
-
-    }
-
-    private interface FirebaseCallback{
-        fun onCallback(list:ArrayList<String>)
-    }
 }

@@ -8,6 +8,7 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.example.todolist_ramkumartextiles.R
 import com.example.todolist_ramkumartextiles.fragment.AssignTaskFrag
+import com.example.todolist_ramkumartextiles.fragment.EmployeeInfoFrag
 import com.example.todolist_ramkumartextiles.fragment.MapsFrag
 import com.example.todolist_ramkumartextiles.fragment.StatusFrag
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -30,6 +31,9 @@ class OwnersAct : AppCompatActivity() {
             R.id.location ->{
                 selectedFragment = MapsFrag()
               }
+            R.id.people ->{
+                selectedFragment = EmployeeInfoFrag()
+            }
         }
 
         supportFragmentManager.beginTransaction().replace(R.id.fragment_container, selectedFragment!!).commit()

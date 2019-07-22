@@ -6,6 +6,7 @@ import android.util.DisplayMetrics
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.todolist_ramkumartextiles.R
 import com.example.todolist_ramkumartextiles.adapters.RecycleAdapt
+import com.example.todolist_ramkumartextiles.adapters.RecycleAdapt_Completed
 import com.example.todolist_ramkumartextiles.models.TaskInformation
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_task_remaining.*
@@ -14,7 +15,7 @@ class TaskRemaining : AppCompatActivity() {
 
     private lateinit var databaseReference: DatabaseReference
     private var items = ArrayList<TaskInformation>()
-    private lateinit var adapter: RecycleAdapt
+    private lateinit var adapter: RecycleAdapt_Completed
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,7 +47,7 @@ class TaskRemaining : AppCompatActivity() {
                     if (item != null) {
                         items.add(item)
                     }
-                    adapter = RecycleAdapt(items,applicationContext)
+                    adapter = RecycleAdapt_Completed(items,applicationContext)
                     task_remaining_rv.layoutManager = LinearLayoutManager(this@TaskRemaining)
                     task_remaining_rv.adapter = adapter
                 }

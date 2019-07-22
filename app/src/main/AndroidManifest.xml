@@ -30,8 +30,12 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-        <activity android:name=".activity.TaskRemaining"
+        <activity android:name=".activity.InfoAct"
                   android:theme="@style/AppTheme.CustomTheme">
+        </activity>
+        <activity
+                android:name=".activity.TaskRemaining"
+                android:theme="@style/AppTheme.CustomTheme">
         </activity>
         <activity
                 android:name=".activity.OwnersAct"
