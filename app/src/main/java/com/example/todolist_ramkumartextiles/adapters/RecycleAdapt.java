@@ -13,9 +13,7 @@ import java.util.ArrayList;
 
 public class RecycleAdapt extends RecyclerView.Adapter<RecycleAdapt.ViewHolder>
 {
-
     private ArrayList<TaskInformation> items;
-
 
     public RecycleAdapt(ArrayList<TaskInformation> items, Context context)
     {

@@ -8,7 +8,7 @@ import com.example.todolist_ramkumartextiles.R
 
 class WelcomeScreen : AppCompatActivity() {
 
-    private val SPLASH_TIME_OUT = 2000
+    private val SPLASH_TIME_OUT = 1000
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

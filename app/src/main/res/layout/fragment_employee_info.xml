@@ -24,20 +24,17 @@
             android:textSize="30sp"
             android:textColor="@color/colorAccent"
             android:textStyle="bold"
-            android:layout_marginTop="8dp"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toTopOf="@+id/guideline4"/>
 
     <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="395dp"
-            android:layout_height="658dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:id="@+id/employee_info_rv"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline4"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginTop="8dp"
             android:padding="16dp"
     />
 

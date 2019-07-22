@@ -1,68 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-tools:context=".fragment.ToDoFrag"
-android:orientation="vertical">
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".fragment.ToDoFrag"
+        android:id="@+id/linearLayout2">
 
 
+    <TextView android:layout_width="0dp"
+              android:layout_height="0dp"
+              android:text="@string/status"
+              android:gravity="left|center"
+              android:paddingLeft="8dp"
+              android:background="@color/colorPrimaryLight"
+              android:textColor="#000000"
+              android:textAllCaps="true"
+              tools:ignore="NestedWeights,RtlHardcoded"
+              android:textSize="15sp"
+              android:id="@+id/textView7"
+              app:layout_constraintEnd_toStartOf="@+id/textView8"
+              app:layout_constraintBottom_toTopOf="@+id/guideline7"
+              app:layout_constraintTop_toTopOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+    />
 
-<LinearLayout
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-android:layout_weight="0.1"
+    <TextView android:layout_width="0dp"
+              android:layout_height="0dp"
+              android:text="@string/description"
+              android:gravity="center"
+              android:textColor="#000000"
+              android:background="@color/colorPrimaryLight"
+              android:textAllCaps="true"
+              android:textSize="15sp"
+              android:id="@+id/textView8"
+              app:layout_constraintStart_toEndOf="@+id/textView7"
+              app:layout_constraintEnd_toStartOf="@+id/textView9"
+              app:layout_constraintBottom_toTopOf="@+id/guideline7"
+              app:layout_constraintTop_toTopOf="parent"
+              />
 
->
-<TextView android:layout_width="wrap_content"
-android:layout_height="match_parent"
-android:text="@string/status"
-android:gravity="left|center"
-android:paddingLeft="8dp"
-android:layout_weight="0.2"
-android:background="@color/colorPrimaryLight"
-android:textColor="#000000"
-android:textAllCaps="true"
-android:layout_gravity="center"
-tools:ignore="NestedWeights,RtlHardcoded" android:textSize="15sp"/>
-<TextView android:layout_width="wrap_content"
-android:layout_height="match_parent"
-android:text="@string/description"
-android:gravity="center"
-android:textColor="#000000"
-android:background="@color/colorPrimaryLight"
-android:layout_gravity="center"
-android:layout_weight="0.5"
-android:textAllCaps="true"
-android:textSize="15sp"/>
-<TextView android:layout_width="wrap_content"
-android:layout_height="match_parent"
-android:text="@string/complete_by"
-android:gravity="right|center"
-android:background="@color/colorPrimaryLight"
-android:paddingRight="8dp"
-android:textColor="#000000"
-android:textAllCaps="true"
-android:layout_gravity="center"
-android:layout_weight="0.3"
-tools:ignore="RtlHardcoded" android:textSize="15sp"/>
+    <TextView android:layout_width="0dp"
+              android:layout_height="0dp"
+              android:text="@string/complete_by"
+              android:gravity="right|center"
+              android:background="@color/colorPrimaryLight"
+              android:paddingRight="8dp"
+              android:textColor="#000000"
+              android:textAllCaps="true"
+              tools:ignore="RtlHardcoded"
+              android:textSize="15sp"
+              android:id="@+id/textView9"
+              app:layout_constraintStart_toEndOf="@+id/textView8"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintBottom_toTopOf="@+id/guideline7"
+              app:layout_constraintTop_toTopOf="parent"
+    />
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:padding="16dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/guideline13"
+            app:layout_constraintTop_toTopOf="@+id/guideline7"/>
+    <Button android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:text="@string/update"
+            android:id="@+id/updateTask"
+            android:textSize="15sp"
+            android:background="@drawable/button_design2"
+            android:gravity="center"
+            app:layout_constraintStart_toStartOf="@+id/guideline14"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.463"
+            app:layout_constraintTop_toTopOf="@+id/guideline13"
+            app:layout_constraintEnd_toStartOf="@+id/guideline16"
 
-</LinearLayout>
-<androidx.recyclerview.widget.RecyclerView
-android:id="@+id/recyclerView"
-android:padding="16dp"
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-android:layout_weight="0.75"
-/>
-<Button android:layout_width="wrap_content"
-android:layout_height="wrap_content"
-android:layout_weight="0.02"
-android:layout_gravity="center"
-android:text="@string/update"
-android:id="@+id/updateTask"
-android:background="@drawable/button_design2"
-android:gravity="center"
-/>
-</LinearLayout>
+            />
+    <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/guideline7"
+            app:layout_constraintGuide_percent="0.08"
+            android:orientation="horizontal"/>
+    <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/guideline13"
+            app:layout_constraintGuide_percent="0.92"
+            android:orientation="horizontal"/>
+    <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/guideline14"
+            app:layout_constraintGuide_percent="0.35"
+            android:orientation="vertical"/>
+    <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/guideline16"
+            app:layout_constraintGuide_percent="0.65"
+            android:orientation="vertical"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
