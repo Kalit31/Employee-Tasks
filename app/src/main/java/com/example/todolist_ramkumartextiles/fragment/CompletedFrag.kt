@@ -1,14 +1,18 @@
 package com.example.todolist_ramkumartextiles.fragment
 
 
+import android.annotation.SuppressLint
+import android.annotation.TargetApi
 import android.content.Context
 import android.content.SharedPreferences
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.example.todolist_ramkumartextiles.R
@@ -16,7 +20,13 @@ import com.example.todolist_ramkumartextiles.adapters.RecycleAdapt
 import com.example.todolist_ramkumartextiles.adapters.RecycleAdapt_Completed
 import com.example.todolist_ramkumartextiles.models.TaskInformation
 import com.google.firebase.database.*
+import kotlinx.android.synthetic.main.fragment_assign_task.*
 import kotlinx.android.synthetic.main.fragment_completed.view.*
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class CompletedFrag : Fragment() {
@@ -31,24 +41,38 @@ class CompletedFrag : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         val v = inflater.inflate(R.layout.fragment_completed, container, false)
 
         sharedPreferences = context!!.getSharedPreferences("LoginPref", Context.MODE_PRIVATE)
         username = sharedPreferences.getString("username"," ")!!
         databaseReference = FirebaseDatabase.getInstance().getReference("Completed").
             child(username)
+        val date = Date()
 
         databaseReference.addValueEventListener(object : ValueEventListener {
+            @SuppressLint("SimpleDateFormat")
+            @TargetApi(Build.VERSION_CODES.O)
+            @RequiresApi(Build.VERSION_CODES.O)
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
+
                 items.clear()
                 for (ds in dataSnapshot.children)
                 {
                     val item: TaskInformation? = ds.getValue(TaskInformation::class.java)
                     if (item != null) {
-                        items.add(item)
+                        var dateComplete = item.date
+                        val d1 = SimpleDateFormat("dd-MM-yyyy").parse(dateComplete)
+                        val calendar = Calendar.getInstance()
+                        calendar.time = d1
+                        calendar.add(Calendar.DAY_OF_WEEK,+7)
+                        val d2 = calendar.time
+                        if(date <= d2)
+                           items.add(item)
+                        else{
+                            val newRef = FirebaseDatabase.getInstance().getReference("Completed").
+                                    child(username).child(item.taskId)
+                            newRef.removeValue()
+                        }
                     }
                 }
                 adapter = RecycleAdapt_Completed(items, context)
@@ -62,6 +86,4 @@ class CompletedFrag : Fragment() {
         })
         return v
     }
-
-
 }

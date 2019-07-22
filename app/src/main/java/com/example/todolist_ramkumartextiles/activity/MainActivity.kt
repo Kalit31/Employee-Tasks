@@ -7,12 +7,10 @@ import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.todolist_ramkumartextiles.R
 import kotlinx.android.synthetic.main.activity_main.*
-import com.example.todolist_ramkumartextiles.services.GPSTracker
 import com.example.todolist_ramkumartextiles.services.LocationService
 
 

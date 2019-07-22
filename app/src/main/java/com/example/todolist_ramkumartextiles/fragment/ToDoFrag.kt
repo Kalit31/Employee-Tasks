@@ -23,6 +23,9 @@ import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_to_do.*
 import kotlinx.android.synthetic.main.fragment_to_do.*
 import kotlinx.android.synthetic.main.fragment_to_do.view.*
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class ToDoFrag : Fragment() {
 
@@ -75,16 +78,16 @@ class ToDoFrag : Fragment() {
             {
                 if(item.status)
                 {
-                    val ref = databaseReference.child(item.getTaskId())
+                    val ref = databaseReference.child(item.taskId)
                     val newRef = FirebaseDatabase.getInstance().getReference("Completed")
-                    val taskId = newRef.push().key
-                    newRef.child(username).child(taskId!!).setValue(item)
+                    val date = SimpleDateFormat("dd-MM-yyyy",Locale.getDefault()).format(Date())
+                    item.date = date
+                    newRef.child(username).child(item.taskId).setValue(item)
                     ref.removeValue()
                 }
             }
+            val d =Date().toString()
         }
         return v
     }
-
-
 }
