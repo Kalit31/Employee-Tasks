@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools" android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="90dp">
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:orientation="horizontal"
+            android:id="@+id/employee_info_layout"
+            android:background="@drawable/edittext_design" tools:ignore="UselessParent">
+
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.7"
+                android:gravity="center"
+                android:padding="16dp"
+                android:layout_gravity="center"
+                android:text="@string/employee"
+                android:textColor="@color/colorPrimary"
+                android:id="@+id/tV_employee_info"
+                android:textStyle="bold"
+                android:textSize="25sp" tools:ignore="RtlHardcoded"/>
+        </LinearLayout>
+
+
+</LinearLayout>

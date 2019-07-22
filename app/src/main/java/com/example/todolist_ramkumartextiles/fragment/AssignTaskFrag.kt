@@ -94,9 +94,9 @@ class AssignTaskFrag : Fragment() {
         }
 
         view.submitTask.setOnClickListener {
-            val taskDesc = desc.text.toString()
+            var taskDesc = desc.text.toString()
             val status = false
-            if(TextUtils.isEmpty(employeeName) || TextUtils.isEmpty(taskDesc))
+            if(TextUtils.isEmpty(employeeName) || TextUtils.isEmpty(taskDesc)|| TextUtils.isEmpty(dateString))
             {
                 Toast.makeText(context,"Incomplete Task", Toast.LENGTH_SHORT).show()
             }
@@ -117,6 +117,8 @@ class AssignTaskFrag : Fragment() {
                     )
                 databaseReference.child(employeeName).child("tasks").child(taskId!!).setValue(taskInfo)
                 desc.setText("")
+                dateString = ""
+                taskDesc = ""
                 tV_dateA.text = "Date"
                 Toast.makeText(context,"Uploaded Task", Toast.LENGTH_SHORT).show()
             }
