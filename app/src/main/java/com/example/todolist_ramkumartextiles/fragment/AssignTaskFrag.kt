@@ -2,6 +2,10 @@ package com.example.todolist_ramkumartextiles.fragment
 
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context.NOTIFICATION_SERVICE
+import android.os.Build
 import android.os.Bundle
 import android.text.TextUtils
 import androidx.fragment.app.Fragment
@@ -11,6 +15,9 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContextCompat.getSystemService
 import com.example.todolist_ramkumartextiles.R
 import com.example.todolist_ramkumartextiles.models.TaskInformation
 import com.google.firebase.auth.FirebaseAuth
@@ -26,10 +33,15 @@ class AssignTaskFrag : Fragment() {
     private lateinit var databaseReference: DatabaseReference
     private lateinit var auth: FirebaseAuth
     private var employeeName:String = ""
+    private final val CHANNEL_ID = "notification_id"
+    private final val CHANNEL_NAME = "notification_name"
+    private final val CHANNEL_DESC = "notification_desc"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
+
+
 
     @SuppressLint("SetTextI18n")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
@@ -59,6 +71,13 @@ class AssignTaskFrag : Fragment() {
                 Toast.makeText(context, error.toString(), Toast.LENGTH_SHORT).show()
             }
         })
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            var channel = NotificationChannel(CHANNEL_ID,CHANNEL_NAME,NotificationManager.IMPORTANCE_DEFAULT)
+            channel.description = CHANNEL_DESC
+            val notificationManager = context!!.getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel)
+        }
 
 
         if (view.employee_name != null)
@@ -125,4 +144,6 @@ class AssignTaskFrag : Fragment() {
         }
         return view
     }
+
+
 }

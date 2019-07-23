@@ -2,15 +2,24 @@ package com.example.todolist_ramkumartextiles.models;
 
 public class UsersInformation
 {
-    private String  username, email, password;
+    private String  username, email, password, token;
 
     public UsersInformation() {
     }
 
-    public UsersInformation(String username, String email, String password) {
+    public UsersInformation(String username, String email, String password,String token) {
         this.username = username;
         this.email = email;
         this.password = password;
+        this.token = token;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public String getUsername() {
