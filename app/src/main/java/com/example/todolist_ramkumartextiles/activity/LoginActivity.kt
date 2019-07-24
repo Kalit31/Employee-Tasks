@@ -8,11 +8,16 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.widget.Toast
 import com.example.todolist_ramkumartextiles.R
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.gms.tasks.OnSuccessListener
+import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GetTokenResult
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.iid.FirebaseInstanceId
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {
@@ -65,9 +70,15 @@ class LoginActivity : AppCompatActivity() {
                                     {
                                             auth.signInWithEmailAndPassword(email,password).
                                                     addOnCompleteListener(this@LoginActivity) {task ->
-                                                                                if (task.isSuccessful) {
-                            // Sign in success, update UI with the signed-in user's information
-                                                                                     finish()
+                                if (task.isSuccessful) {
+
+                                   finish()
+
+                                    val token = FirebaseInstanceId.getInstance().getToken()
+                                    val ref = FirebaseDatabase.getInstance().getReference("Users")
+                                        .child(username).child("token")
+                                    ref.setValue(token)
+
                             val edit: SharedPreferences.Editor = sharedPreferences.edit()
                             edit.putString("username", username)
                             edit.putBoolean("LoginStatus", true)
@@ -89,7 +100,6 @@ class LoginActivity : AppCompatActivity() {
                                             baseContext, "Invalid email",
                                             Toast.LENGTH_SHORT
                                         ).show()
-
                                 }
                             })
                         }
@@ -100,29 +110,7 @@ class LoginActivity : AppCompatActivity() {
                             ).show()
                         }
                     }
-
                 })
-
-//                auth.signInWithEmailAndPassword(email, password)
-//                    .addOnCompleteListener(this) { task ->
-//                        if (task.isSuccessful) {
-//                            // Sign in success, update UI with the signed-in user's information
-//                            finish()
-//                            val edit: SharedPreferences.Editor = sharedPreferences.edit()
-//                            edit.putString("username", username)
-//                            edit.putBoolean("LoginStatus", true)
-//                            edit.apply()
-//                            val todDoIntent = Intent(applicationContext, EmployeeActivity::class.java)
-//                            todDoIntent.putExtra("username", username)
-//                            startActivity(todDoIntent)
-//
-//                        } else {
-//                            Toast.makeText(
-//                                baseContext, "Login failed.",
-//                                Toast.LENGTH_SHORT
-//                            ).show()
-//                        }
-//                    }
             }
         }
     }
@@ -145,11 +133,8 @@ class LoginActivity : AppCompatActivity() {
                 Toast.makeText(applicationContext, error.toString(), Toast.LENGTH_SHORT).show()
             }
         })
-
     }
-
     private interface FirebaseCallback{
         fun onCallback(list:ArrayList<String>)
     }
-
 }

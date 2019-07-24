@@ -14,6 +14,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.SpinnerAdapter
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
@@ -83,7 +84,7 @@ class AssignTaskFrag : Fragment() {
         if (view.employee_name != null)
         {
             val arrayAdapter = context?.let { ArrayAdapter(it, android.R.layout.simple_spinner_dropdown_item,usersList) }
-            view.employee_name.adapter = arrayAdapter
+            view.employee_name.adapter = (arrayAdapter as SpinnerAdapter?)!!
 
             view.employee_name.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
                 override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -101,7 +102,8 @@ class AssignTaskFrag : Fragment() {
             val now = Calendar.getInstance()
             val datePickerDialog = context?.let { it1 ->
                 DatePickerDialog(it1, DatePickerDialog.OnDateSetListener { _, year, month, day ->
-                    dateString = "$day/$month/$year"
+                    val m = month + 1
+                    dateString = "$day/$m/$year"
                     tV_dateA.text = dateString
 
                 },now.get(Calendar.YEAR),now.get(Calendar.MONTH),now.get(Calendar.DAY_OF_MONTH))
@@ -135,6 +137,10 @@ class AssignTaskFrag : Fragment() {
                         taskId
                     )
                 databaseReference.child(employeeName).child("tasks").child(taskId!!).setValue(taskInfo)
+
+                val notifications = FirebaseDatabase.getInstance().getReference("notificationsRequests").child(employeeName)
+                notifications.push().setValue(taskDesc)
+
                 desc.setText("")
                 dateString = ""
                 taskDesc = ""
@@ -144,6 +150,4 @@ class AssignTaskFrag : Fragment() {
         }
         return view
     }
-
-
 }

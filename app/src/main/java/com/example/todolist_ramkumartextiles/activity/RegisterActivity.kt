@@ -59,30 +59,25 @@ class RegisterActivity : AppCompatActivity() {
                                         baseContext, "Authentication success",
                                         Toast.LENGTH_SHORT
                                     ).show()
-                                    var token:String
-                                    FirebaseInstanceId.getInstance().instanceId.addOnCompleteListener(object:OnCompleteListener<InstanceIdResult>
-                                    {
-                                        override fun onComplete(p0: Task<InstanceIdResult>) {
-                                         token = p0.result!!.token
-                                            val userInfo: UsersInformation =
-                                                UsersInformation(
-                                                    username,
-                                                    email,
-                                                    password,token
-                                                )
-                                            databaseReference.child(username).setValue(userInfo)
-                                            val ref = FirebaseDatabase.getInstance().getReference("Usernames")
-                                            var id = ref.push().key
-                                            ref.child(id!!).setValue(username)
-                                            databaseReference.child(username).child("count").setValue(0)
-                                            var sharedPreferences = getSharedPreferences("LoginPref", Context.MODE_PRIVATE)
-                                            val edit: SharedPreferences.Editor = sharedPreferences.edit()
-                                            edit.putString("username", username)
-                                            edit.putBoolean("LoginStatus",true)
-                                            edit.apply()
-                                        }
+                                    val token = FirebaseInstanceId.getInstance(). token
+                                        val userInfo: UsersInformation =
+                                            UsersInformation(
+                                                username,
+                                                email,
+                                                password,
+                                                token
+                                            )
+                                        databaseReference.child(username).setValue(userInfo)
+                                        val ref = FirebaseDatabase.getInstance().getReference("Usernames")
+                                        var id = ref.push().key
+                                        ref.child(id!!).setValue(username)
+                                        databaseReference.child(username).child("count").setValue(0)
+                                        var sharedPreferences = getSharedPreferences("LoginPref", Context.MODE_PRIVATE)
+                                        val edit: SharedPreferences.Editor = sharedPreferences.edit()
+                                        edit.putString("username", username)
+                                        edit.putBoolean("LoginStatus",true)
+                                        edit.apply()
 
-                                    })
 
                                 } else {
                                     Toast.makeText(

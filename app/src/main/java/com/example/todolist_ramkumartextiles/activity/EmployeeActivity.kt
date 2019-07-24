@@ -82,8 +82,7 @@ class EmployeeActivity : AppCompatActivity() {
 
         this.username = intent.getStringExtra("username").toString()
 
-        FirebaseMessaging.getInstance().subscribeToTopic("tasks");
-
+        FirebaseMessaging.getInstance().subscribeToTopic("user_$username")
         if(auth.currentUser == null)
         {
             finish()
@@ -100,7 +99,8 @@ class EmployeeActivity : AppCompatActivity() {
             auth.signOut()
 
             startActivity(Intent(applicationContext, LoginActivity::class.java))
-
+            val ref = FirebaseDatabase.getInstance().getReference("Users").child(username).child("token")
+            ref.removeValue()
             val edit: SharedPreferences.Editor = sharedPreferences.edit()
             edit.putBoolean("LoginStatus",false)
             edit.apply()
