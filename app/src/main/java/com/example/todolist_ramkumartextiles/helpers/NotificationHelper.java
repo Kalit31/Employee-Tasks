@@ -23,13 +23,14 @@ public class NotificationHelper {
                 (context,100,intent,PendingIntent.FLAG_CANCEL_CURRENT);
 
 
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context,CHANNEL_ID )
+        NotificationCompat.Builder mBuilder = (NotificationCompat.Builder) new NotificationCompat.Builder(context,CHANNEL_ID )
                 .setSmallIcon(R.drawable.ic_assignment_black_24dp)
                 .setContentTitle(title)
                 .setContentText(body)
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true)
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setDefaults(NotificationCompat.DEFAULT_SOUND);
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);
         notificationManagerCompat.notify(1,mBuilder.build());
 

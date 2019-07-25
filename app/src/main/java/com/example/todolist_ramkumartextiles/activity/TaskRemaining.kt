@@ -3,6 +3,7 @@ package com.example.todolist_ramkumartextiles.activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.DisplayMetrics
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.todolist_ramkumartextiles.R
 import com.example.todolist_ramkumartextiles.adapters.RecycleAdapt
@@ -11,6 +12,7 @@ import com.example.todolist_ramkumartextiles.models.TaskInformation
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_task_remaining.*
 
+@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class TaskRemaining : AppCompatActivity() {
 
     private lateinit var databaseReference: DatabaseReference
@@ -31,7 +33,8 @@ class TaskRemaining : AppCompatActivity() {
 
         val username = intent.getStringExtra("username")
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(username).
+
+       databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(username).
                 child("tasks")
 
         databaseReference.addValueEventListener(object :ValueEventListener
@@ -51,9 +54,7 @@ class TaskRemaining : AppCompatActivity() {
                     task_remaining_rv.layoutManager = LinearLayoutManager(this@TaskRemaining)
                     task_remaining_rv.adapter = adapter
                 }
-
             }
-
         })
 
     }

@@ -25,6 +25,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.fragment_assign_task.*
 import kotlinx.android.synthetic.main.fragment_assign_task.view.*
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -55,6 +56,9 @@ class AssignTaskFrag : Fragment() {
 
         var dateString: String = ""
         databaseReference = FirebaseDatabase.getInstance().getReference("Usernames")
+
+         val removeRef = FirebaseDatabase.getInstance().getReference("notificationsRequests")
+         removeRef.removeValue()
 
         usersList.add("Select Employee")
 
@@ -146,6 +150,8 @@ class AssignTaskFrag : Fragment() {
                 taskDesc = ""
                 tV_dateA.text = "Date"
                 Toast.makeText(context,"Uploaded Task", Toast.LENGTH_SHORT).show()
+
+
             }
         }
         return view

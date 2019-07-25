@@ -19,10 +19,10 @@ import java.util.ArrayList;
 public class RecycleAdaptStatus extends RecyclerView.Adapter<RecycleAdaptStatus.ViewHolder>
 {
 
-    private ArrayList<EmployeeStatus> items;
+    private ArrayList<String> items;
     private Context context;
 
-    public RecycleAdaptStatus(ArrayList<EmployeeStatus> items,Context context)
+    public RecycleAdaptStatus(ArrayList<String> items,Context context)
     {
 
         this.items = items;
@@ -32,7 +32,7 @@ public class RecycleAdaptStatus extends RecyclerView.Adapter<RecycleAdaptStatus.
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
-        View view = inflater.inflate(R.layout.employee_status,viewGroup,false);
+        View view = inflater.inflate(R.layout.employee_info_layout,viewGroup,false);
         ViewHolder vh = new ViewHolder(view);
         return vh;
     }
@@ -41,13 +41,12 @@ public class RecycleAdaptStatus extends RecyclerView.Adapter<RecycleAdaptStatus.
     @Override
     public void onBindViewHolder(final ViewHolder viewHolder, final int i)
     {
-        viewHolder.employee.setText(items.get(i).getEmployee());
-        viewHolder.tasks_count.setText(Integer.toString(items.get(i).getCount()));
+        viewHolder.employee.setText(items.get(i));
         viewHolder.employeePop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, TaskRemaining.class);
-                intent.putExtra("username",items.get(i).getEmployee());
+                intent.putExtra("username",items.get(i));
                 context.startActivity(intent);
             }
         });
@@ -60,14 +59,13 @@ public class RecycleAdaptStatus extends RecyclerView.Adapter<RecycleAdaptStatus.
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView employee, tasks_count;
+        TextView employee;
         LinearLayout employeePop;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            employee = itemView.findViewById(R.id.tV_employee);
-            tasks_count = itemView.findViewById(R.id.tV_tasks_remaining);
-            employeePop = itemView.findViewById(R.id.employee_pop);
+            employee = itemView.findViewById(R.id.tV_employee_info);
+            employeePop = itemView.findViewById(R.id.employee_info_layout);
         }
     }
 }
