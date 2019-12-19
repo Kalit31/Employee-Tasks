@@ -1,11 +1,11 @@
 package com.example.todolist_ramkumartextiles.auth.data
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.todolist_ramkumartextiles.model.UsersInformation
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
 import com.google.firebase.iid.FirebaseInstanceId
 import io.reactivex.Completable
 import javax.inject.Inject
@@ -19,21 +19,21 @@ class FirebaseSource {
         FirebaseAuth.getInstance()
     }
 
-    private val databaseReference:DatabaseReference by lazy {
-        FirebaseDatabase.getInstance().getReference("Users")
+    private val database:FirebaseDatabase by lazy {
+        FirebaseDatabase.getInstance()
     }
 
-    fun register(email:String,password: String): LiveData<RegisterStatus> {
-        var status: MutableLiveData<RegisterStatus> = MutableLiveData()
+    fun register(email:String,password: String): LiveData<Status> {
+        var status: MutableLiveData<Status> = MutableLiveData()
 
         firebaseAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener{
             if(it.isSuccessful) {
-                status.value = RegisterStatus(true,"Successfully Signed Up!")
+                status.value = Status(true,"Successfully Signed Up!")
             }else{
-                status.value = RegisterStatus(false,"Authentication failed")
+                status.value = Status(false,"Authentication failed")
             }
         }.addOnFailureListener{
-            status.value = RegisterStatus(false,"Authentication failed")
+            status.value = Status(false,"Authentication failed")
         }
         return status
     }
@@ -47,27 +47,69 @@ class FirebaseSource {
                 password,
                 token
             )
-        databaseReference.child(username).setValue(userInfo)
+        database.getReference("Users").child(username).setValue(userInfo)
         val ref = FirebaseDatabase.getInstance().getReference("Usernames")
         var id = ref.push().key
         ref.child(id!!).setValue(username)
-        databaseReference.child(username).child("count").setValue(0)
+        database.getReference("Users").child(username).child("count").setValue(0)
     }
 
-    fun login(email:String,password: String) = Completable.create { emitter ->  
+    fun login(email:String,password: String): LiveData<Status> {
+        var status: MutableLiveData<Status> = MutableLiveData()
         firebaseAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener{
-            if(!emitter.isDisposed){
-                if(it.isSuccessful)
-                    emitter.onComplete()
-                else
-                    emitter.onError(it.exception!!)
+            if(it.isSuccessful) {
+                status.value = Status(true,"Successfully Logged in!")
+            }else{
+                status.value = Status(false,"LogIn Failed")
             }
+        }.addOnFailureListener{
+            status.value = Status(false,"LogIn Failed")
         }
+        return status
     }
 
     fun logout() = firebaseAuth.signOut()
 
     fun currentUser() = firebaseAuth.currentUser
 
+    fun readUsers(firebaseCallback: FirebaseCallback){
 
+        var userList = ArrayList<String>()
+
+        var ref = database.getReference("Usernames")
+        ref.addValueEventListener(object : ValueEventListener {
+
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                userList.clear()
+                for (ds in dataSnapshot.children) {
+                    val user = ds.getValue(String::class.java)
+                    if (user != null) {
+                        userList.add(user)
+                    }
+                }
+                firebaseCallback.onCallback(userList)
+            }
+            override fun onCancelled(error: DatabaseError) {
+                firebaseCallback.onCallback(userList)
+            }
+        })
+    }
+
+    fun userPresent(username:String):Boolean{
+        var userPresent = false
+        readUsers(object :FirebaseCallback{
+            override fun onCallback(list: ArrayList<String>){
+                Log.d("test",list.toString())
+                userPresent = list.contains(username)
+                Log.d("test",userPresent.toString())
+            }
+        })
+        Log.d("test",userPresent.toString())
+        return userPresent
+    }
+
+
+    interface FirebaseCallback{
+        fun onCallback(list:ArrayList<String>)
+    }
 }

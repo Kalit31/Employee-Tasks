@@ -1,6 +1,7 @@
 package com.example.todolist_ramkumartextiles.auth.views
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -12,6 +13,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.todolist_ramkumartextiles.R
+import com.example.todolist_ramkumartextiles.activity.EmployeeActivity
 import com.example.todolist_ramkumartextiles.auth.viewmodel.AuthViewModel
 import com.example.todolist_ramkumartextiles.auth.viewmodel.AuthViewModelFactory
 import com.example.todolist_ramkumartextiles.databinding.ActivityRegisterBinding
@@ -31,7 +33,6 @@ class RegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
-        Toast.makeText(this,"Tapped here",Toast.LENGTH_SHORT).show()
         binding = DataBindingUtil.setContentView(this,R.layout.activity_register)
         authViewModel = ViewModelProviders.of(this,AuthViewModelFactory()).get(AuthViewModel::class.java)
 
@@ -41,11 +42,11 @@ class RegisterActivity : AppCompatActivity() {
                 authViewModel.signup(etUsernameR.text.toString(),
                     emailR.text.toString(),etPasswordR.text.toString(),
                     etPasswordRR.text.toString()).observe(owner, Observer {
-
                     Toast.makeText(applicationContext,it.message,Toast.LENGTH_SHORT).show()
                     if(it.complete){
                         authViewModel.storeUser(etUsernameR.text.toString(),
-                            emailR.text.toString(),etPasswordR.text.toString())
+                            emailR.text.toString(),etPasswordR.text.toString(),this)
+                        startActivity(Intent(this, EmployeeActivity::class.java))
                     }
                 })
         }

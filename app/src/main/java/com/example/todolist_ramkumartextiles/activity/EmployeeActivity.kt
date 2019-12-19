@@ -50,23 +50,26 @@ class EmployeeActivity : AppCompatActivity() {
         setContentView(R.layout.activity_to_do)
 
         auth = FirebaseAuth.getInstance()
-        sharedPreferences = getSharedPreferences("LoginPref", Context.MODE_PRIVATE)
+      //  sharedPreferences = getSharedPreferences("LoginPref", Context.MODE_PRIVATE)
 
-        if(sharedPreferences.getBoolean("LoginStatus",false)) {
+      /*  if(sharedPreferences.getBoolean("LoginStatus",false)) {
             val intent = Intent(this, LocationService::class.java)
             startService(intent)
-        }
+        }*/
 
-        this.username = intent.getStringExtra("username").toString()
+     //   this.username = intent.getStringExtra("username").toString()
 
-        FirebaseMessaging.getInstance().subscribeToTopic("user_$username")
+
+
         if(auth.currentUser == null)
         {
             finish()
             startActivity(Intent(applicationContext, LoginActivity::class.java))
         }
+        this.username = auth.currentUser?.displayName.toString()
+        FirebaseMessaging.getInstance().subscribeToTopic("user_$username")
 
-        bottom_nav_us.setOnNavigationItemSelectedListener (mOnNavigationItemSelectedListener)
+            bottom_nav_us.setOnNavigationItemSelectedListener (mOnNavigationItemSelectedListener)
         val startFrag = ToDoFrag()
         supportFragmentManager.beginTransaction().replace(R.id.fragment_container_user, startFrag).commit()
 
@@ -74,15 +77,14 @@ class EmployeeActivity : AppCompatActivity() {
 
         logout.setOnClickListener {
             auth.signOut()
-
             startActivity(Intent(applicationContext, LoginActivity::class.java))
             val ref = FirebaseDatabase.getInstance().getReference("Users").child(username).child("token")
             ref.removeValue()
-            val edit: SharedPreferences.Editor = sharedPreferences.edit()
+           /* val edit: SharedPreferences.Editor = sharedPreferences.edit()
             edit.putBoolean("LoginStatus",false)
             edit.apply()
             val intent = Intent(this,LocationService::class.java)
-            stopService(intent)
+            stopService(intent)*/
             finish()
         }
     }
