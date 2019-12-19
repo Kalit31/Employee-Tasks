@@ -1,4 +1,4 @@
-package com.example.todolist_ramkumartextiles.activity
+package com.example.todolist_ramkumartextiles.auth.views
 
 import android.content.Context
 import android.content.Intent
@@ -8,11 +8,8 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.widget.Toast
 import com.example.todolist_ramkumartextiles.R
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.gms.tasks.OnSuccessListener
-import com.google.android.gms.tasks.Task
+import com.example.todolist_ramkumartextiles.activity.EmployeeActivity
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.GetTokenResult
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -51,7 +48,8 @@ class LoginActivity : AppCompatActivity() {
             if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password) || TextUtils.isEmpty((username))) {
                 Toast.makeText(applicationContext, "Please enter all details", Toast.LENGTH_SHORT).show()
             } else {
-                readUsers(object: FirebaseCallback
+                readUsers(object:
+                    FirebaseCallback
                 {
                     override fun onCallback(list: ArrayList<String>) {
                         if(list.contains(username))

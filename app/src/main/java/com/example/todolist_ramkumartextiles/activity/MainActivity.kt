@@ -12,6 +12,8 @@ import androidx.core.content.ContextCompat
 import com.example.todolist_ramkumartextiles.R
 import kotlinx.android.synthetic.main.activity_main.*
 import com.example.todolist_ramkumartextiles.services.LocationService
+import com.example.todolist_ramkumartextiles.auth.views.LoginActivity
+import com.example.todolist_ramkumartextiles.auth.views.RegisterActivity
 
 
 class MainActivity : AppCompatActivity() {

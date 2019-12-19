@@ -24,6 +24,7 @@
             android:required="true"/>
 
     <application
+            android:name=".EmployeeApp"
             android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"
             android:roundIcon="@mipmap/ic_launcher_round"
@@ -59,11 +60,11 @@
                 android:screenOrientation="portrait">
         </activity>
         <activity
-                android:name=".activity.RegisterActivity"
+                android:name=".auth.views.RegisterActivity"
                 android:screenOrientation="portrait">
         </activity>
         <activity
-                android:name=".activity.LoginActivity"
+                android:name=".auth.views.LoginActivity"
                 android:screenOrientation="portrait">
         </activity>
         <activity
