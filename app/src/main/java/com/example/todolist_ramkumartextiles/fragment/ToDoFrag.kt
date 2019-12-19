@@ -2,27 +2,20 @@ package com.example.todolist_ramkumartextiles.fragment
 
 
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 
 import com.example.todolist_ramkumartextiles.R
-import com.example.todolist_ramkumartextiles.activity.LoginActivity
 import com.example.todolist_ramkumartextiles.adapters.RecycleAdapt
-import com.example.todolist_ramkumartextiles.models.TaskInformation
-import com.example.todolist_ramkumartextiles.services.LocationService
+import com.example.todolist_ramkumartextiles.model.TaskInformation
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import kotlinx.android.synthetic.main.activity_to_do.*
-import kotlinx.android.synthetic.main.fragment_to_do.*
 import kotlinx.android.synthetic.main.fragment_to_do.view.*
 import java.text.SimpleDateFormat
 import java.util.*

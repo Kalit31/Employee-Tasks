@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todolist_ramkumartextiles.R
-import com.example.todolist_ramkumartextiles.models.TaskInformation
+import com.example.todolist_ramkumartextiles.model.TaskInformation
 
 import java.util.ArrayList
 

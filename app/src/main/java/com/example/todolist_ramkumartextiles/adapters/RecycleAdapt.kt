@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todolist_ramkumartextiles.R
-import com.example.todolist_ramkumartextiles.models.TaskInformation
+import com.example.todolist_ramkumartextiles.model.TaskInformation
 import kotlinx.android.synthetic.main.task_layout.view.*
 
 class RecycleAdapt : RecyclerView.Adapter<RecyclerView.ViewHolder>(){

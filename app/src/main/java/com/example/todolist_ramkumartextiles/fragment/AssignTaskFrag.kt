@@ -16,16 +16,12 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.SpinnerAdapter
 import android.widget.Toast
-import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
-import androidx.core.content.ContextCompat.getSystemService
 import com.example.todolist_ramkumartextiles.R
-import com.example.todolist_ramkumartextiles.models.TaskInformation
+import com.example.todolist_ramkumartextiles.model.TaskInformation
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.fragment_assign_task.*
 import kotlinx.android.synthetic.main.fragment_assign_task.view.*
-import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 

@@ -1,4 +1,4 @@
-package com.example.todolist_ramkumartextiles.models
+package com.example.todolist_ramkumartextiles.model
 
 data class EmployeeStatus(
     var employee: String="",

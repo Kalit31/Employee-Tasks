@@ -6,7 +6,7 @@ import android.util.DisplayMetrics
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.todolist_ramkumartextiles.R
 import com.example.todolist_ramkumartextiles.adapters.RecycleAdapt_Completed
-import com.example.todolist_ramkumartextiles.models.TaskInformation
+import com.example.todolist_ramkumartextiles.model.TaskInformation
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_task_remaining.*
 
