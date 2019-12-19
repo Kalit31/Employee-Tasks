@@ -16,15 +16,11 @@ import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.example.todolist_ramkumartextiles.R
-import com.example.todolist_ramkumartextiles.adapters.RecycleAdapt
 import com.example.todolist_ramkumartextiles.adapters.RecycleAdapt_Completed
 import com.example.todolist_ramkumartextiles.models.TaskInformation
 import com.google.firebase.database.*
-import kotlinx.android.synthetic.main.fragment_assign_task.*
 import kotlinx.android.synthetic.main.fragment_completed.view.*
 import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -70,7 +66,7 @@ class CompletedFrag : Fragment() {
                            items.add(item)
                         else{
                             val newRef = FirebaseDatabase.getInstance().getReference("Completed").
-                                    child(username).child(item.taskId)
+                                    child(username).child(item.taskId.toString())
                             newRef.removeValue()
                         }
                     }

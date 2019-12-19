@@ -3,10 +3,8 @@ package com.example.todolist_ramkumartextiles.activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.DisplayMetrics
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.todolist_ramkumartextiles.R
-import com.example.todolist_ramkumartextiles.adapters.RecycleAdapt
 import com.example.todolist_ramkumartextiles.adapters.RecycleAdapt_Completed
 import com.example.todolist_ramkumartextiles.models.TaskInformation
 import com.google.firebase.database.*

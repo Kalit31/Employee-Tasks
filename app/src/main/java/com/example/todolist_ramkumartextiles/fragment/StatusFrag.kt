@@ -10,11 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todolist_ramkumartextiles.R
 import com.example.todolist_ramkumartextiles.adapters.RecycleAdaptStatus
-import com.example.todolist_ramkumartextiles.adapters.RecycleAdapter_Info
-import com.example.todolist_ramkumartextiles.models.EmployeeStatus
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import kotlinx.android.synthetic.main.fragment_employee_info.view.*
 import kotlinx.android.synthetic.main.fragment_status.view.*
 import kotlin.collections.ArrayList
 

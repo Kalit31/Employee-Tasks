@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -40,20 +41,24 @@ class ToDoFrag : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        val v = inflater.inflate(R.layout.fragment_to_do, container, false)
 
+        val v = inflater.inflate(R.layout.fragment_to_do, container, false)
 
         sharedPreferences = context!!.getSharedPreferences("LoginPref", Context.MODE_PRIVATE)
         username = sharedPreferences.getString("username"," ")!!
+
+
+        adapter = RecycleAdapt()
+        v.recyclerView.layoutManager = LinearLayoutManager(context)
+        v.recyclerView.adapter = adapter
+
+
         databaseReference = FirebaseDatabase.getInstance().getReference("Users").
             child(username).child("tasks")
 
         databaseReference.addValueEventListener(object : ValueEventListener {
 
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
                 items.clear()
                 for (ds in dataSnapshot.children)
                 {
@@ -65,24 +70,24 @@ class ToDoFrag : Fragment() {
                 var c = items.size
                 var myRef = FirebaseDatabase.getInstance().getReference("Users").child(username)
                 myRef.child("count").setValue(c)
-                adapter = RecycleAdapt(items, context)
-                v.recyclerView.layoutManager = LinearLayoutManager(context)
-                v.recyclerView.adapter = adapter
+                adapter.submitList(items)
+
             }
             override fun onCancelled(error: DatabaseError) {
                 Toast.makeText(context,error.toString(), Toast.LENGTH_SHORT).show()
             }
         })
+
         v.updateTask.setOnClickListener {
             for(item in this.items)
             {
                 if(item.status)
                 {
-                    val ref = databaseReference.child(item.taskId)
+                    val ref = databaseReference.child(item.taskId.toString())
                     val newRef = FirebaseDatabase.getInstance().getReference("Completed")
                     val date = SimpleDateFormat("dd-MM-yyyy",Locale.getDefault()).format(Date())
                     item.date = date
-                    newRef.child(username).child(item.taskId).setValue(item)
+                    newRef.child(username).child(item.taskId.toString()).setValue(item)
                     ref.removeValue()
                 }
             }
