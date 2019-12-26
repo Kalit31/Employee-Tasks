@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">RamkumarTextiles</string>
-    <string name="login">Login</string>
+    <string name="login">Employee Login</string>
     <string name="register">Register</string>
     <string name="password">Password</string>
     <string name="username">Username</string>
@@ -8,7 +8,7 @@
     <string name="logout">Logout</string>
     <string name="register_user">Register User</string>
     <string name="login_user">Login User</string>
-    <string name="company_owners">Company Owners</string>
+    <string name="company_owners">Company Login</string>
     <string name="owners">Owners</string>
     <string name="password_confirm">Password(Confirm)</string>
     <string name="assign_task">Assign Task</string>

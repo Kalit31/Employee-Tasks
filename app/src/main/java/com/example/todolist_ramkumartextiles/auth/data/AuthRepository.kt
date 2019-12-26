@@ -9,8 +9,5 @@ class AuthRepository (private val firebaseSource: FirebaseSource){
     fun logout() =firebaseSource.logout()
     fun currentuser() = firebaseSource.currentUser()
     fun storeUser(username:String, email: String,password: String) = firebaseSource.storeUser(username,email,password)
-    fun userPresent(username: String):Boolean {
-        Log.d("test","Repo"+firebaseSource.userPresent(username))
-        return firebaseSource.userPresent(username)
-    }
+//    fun userPresent(username: String):LiveData<Boolean> = firebaseSource.userPresent(username)
 }

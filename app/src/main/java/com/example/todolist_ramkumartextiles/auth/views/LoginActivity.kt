@@ -6,6 +6,7 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -50,13 +51,18 @@ class LoginActivity : AppCompatActivity() {
         }
 
         login.setOnClickListener {
-            authViewModel.login(etUsernameL.text.toString(),emailL.text.toString(),etPasswordL.text.toString())
+
+            authViewModel.login(emailL.text.toString(),etPasswordL.text.toString())
                 .observe(this, Observer{
                     Toast.makeText(applicationContext,it.message,Toast.LENGTH_SHORT).show()
                     if(it.complete){
                         startActivity(Intent(this, EmployeeActivity::class.java))
                     }
                 })
+        }
+
+        signUpUser.setOnClickListener{
+            startActivity(Intent(this, RegisterActivity::class.java))
         }
     }
 }

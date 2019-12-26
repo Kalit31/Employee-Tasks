@@ -31,21 +31,17 @@ class AuthViewModel(
         authRepository.currentuser()
     }
 
-    fun login(username:String,email:String,password:String):LiveData<Status>{
+    fun login(email:String,password:String):LiveData<Status>{
         var status: MutableLiveData<Status> = MutableLiveData()
 
-        if(username.isBlank()|| email.isBlank()|| password.isBlank()){
+        if(email.isBlank()|| password.isBlank()){
             status.value = Status(false,"Please enter all details!")
-            return status
-        }
-        Log.d("test","Auth"+authRepository.userPresent(username))
-        if(!authRepository.userPresent(username)){
-            status.value = Status(false,"Invalid Username")
             return status
         }
 
         return authRepository.login(email,password)
     }
+
 
     fun signup(username:String,email:String,p1:String,p2:String):LiveData<Status>{
        var status: MutableLiveData<Status> = MutableLiveData()

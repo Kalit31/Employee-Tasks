@@ -39,10 +39,11 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, LoginActivity::class.java))
         }
 
-        butt_register.setOnClickListener {
+        /*butt_register.setOnClickListener {
 
             startActivity(Intent(this, RegisterActivity::class.java))
-        }
+        }*/
+
         butt_owners.setOnClickListener {
 
             startActivity(Intent(this, ownersLogIn::class.java))

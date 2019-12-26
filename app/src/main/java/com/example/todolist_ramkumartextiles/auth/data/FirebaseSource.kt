@@ -49,8 +49,9 @@ class FirebaseSource {
             )
         database.getReference("Users").child(username).setValue(userInfo)
         val ref = FirebaseDatabase.getInstance().getReference("Usernames")
-        var id = ref.push().key
-        ref.child(id!!).setValue(username)
+        var index = email.indexOf('@')
+        var id = email.substring(0,index);
+        ref.child(id).setValue(username)
         database.getReference("Users").child(username).child("count").setValue(0)
     }
 
@@ -72,44 +73,4 @@ class FirebaseSource {
 
     fun currentUser() = firebaseAuth.currentUser
 
-    fun readUsers(firebaseCallback: FirebaseCallback){
-
-        var userList = ArrayList<String>()
-
-        var ref = database.getReference("Usernames")
-        ref.addValueEventListener(object : ValueEventListener {
-
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                userList.clear()
-                for (ds in dataSnapshot.children) {
-                    val user = ds.getValue(String::class.java)
-                    if (user != null) {
-                        userList.add(user)
-                    }
-                }
-                firebaseCallback.onCallback(userList)
-            }
-            override fun onCancelled(error: DatabaseError) {
-                firebaseCallback.onCallback(userList)
-            }
-        })
-    }
-
-    fun userPresent(username:String):Boolean{
-        var userPresent = false
-        readUsers(object :FirebaseCallback{
-            override fun onCallback(list: ArrayList<String>){
-                Log.d("test",list.toString())
-                userPresent = list.contains(username)
-                Log.d("test",userPresent.toString())
-            }
-        })
-        Log.d("test",userPresent.toString())
-        return userPresent
-    }
-
-
-    interface FirebaseCallback{
-        fun onCallback(list:ArrayList<String>)
-    }
 }
