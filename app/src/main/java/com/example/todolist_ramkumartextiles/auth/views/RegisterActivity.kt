@@ -38,14 +38,13 @@ class RegisterActivity : AppCompatActivity() {
 
         var owner: LifecycleOwner = this
 
-            register.setOnClickListener{
-                authViewModel.signup(etUsernameR.text.toString(),
+        register.setOnClickListener{
+                authViewModel.register(etUsernameR.text.toString(),
                     emailR.text.toString(),etPasswordR.text.toString(),
                     etPasswordRR.text.toString()).observe(owner, Observer {
                     Toast.makeText(applicationContext,it.message,Toast.LENGTH_SHORT).show()
                     if(it.complete){
-                        authViewModel.storeUser(etUsernameR.text.toString(),
-                            emailR.text.toString(),etPasswordR.text.toString(),this)
+                        finish()
                         startActivity(Intent(this, EmployeeActivity::class.java))
                     }
                 })

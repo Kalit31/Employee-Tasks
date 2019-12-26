@@ -1,11 +1,9 @@
 package com.example.todolist_ramkumartextiles.auth.viewmodel
 
-import android.app.Application
-import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.todolist_ramkumartextiles.EmployeeApp
-import com.example.todolist_ramkumartextiles.auth.data.AuthRepository
+import com.example.todolist_ramkumartextiles.auth.data.repo.AuthRepository
 import com.example.todolist_ramkumartextiles.di.auth.AuthModule
 import javax.inject.Inject
 

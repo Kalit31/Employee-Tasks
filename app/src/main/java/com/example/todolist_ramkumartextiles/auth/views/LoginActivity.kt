@@ -28,8 +28,8 @@ class LoginActivity : AppCompatActivity() {
 
     private lateinit var authViewModel: AuthViewModel
     private lateinit var binding: ActivityLoginBinding
-    private lateinit var auth: FirebaseAuth
     private lateinit var sharedPreferences:SharedPreferences
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,30 +39,30 @@ class LoginActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this,R.layout.activity_login)
         authViewModel = ViewModelProviders.of(this, AuthViewModelFactory()).get(AuthViewModel::class.java)
 
-
         auth = FirebaseAuth.getInstance()
 
         if (auth.currentUser != null) {
             finish()
             val todDoIntent = Intent(applicationContext, EmployeeActivity::class.java)
-            val sharedPreferences = getSharedPreferences("LoginPref", Context.MODE_PRIVATE)
-            todDoIntent.putExtra("username", sharedPreferences.getString("username", ""))
             startActivity(todDoIntent)
         }
 
         login.setOnClickListener {
-
             authViewModel.login(emailL.text.toString(),etPasswordL.text.toString())
                 .observe(this, Observer{
                     Toast.makeText(applicationContext,it.message,Toast.LENGTH_SHORT).show()
                     if(it.complete){
+                        finish()
+                        authViewModel.updateUsername(emailL.text.toString())
                         startActivity(Intent(this, EmployeeActivity::class.java))
                     }
                 })
         }
 
         signUpUser.setOnClickListener{
+            finish()
             startActivity(Intent(this, RegisterActivity::class.java))
         }
+
     }
 }
