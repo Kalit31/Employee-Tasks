@@ -5,23 +5,16 @@ import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.TextUtils
-import android.util.Log
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.todolist_ramkumartextiles.R
-import com.example.todolist_ramkumartextiles.activity.EmployeeActivity
+import com.example.todolist_ramkumartextiles.tasks.views.activity.EmployeeActivity
 import com.example.todolist_ramkumartextiles.auth.viewmodel.AuthViewModel
 import com.example.todolist_ramkumartextiles.auth.viewmodel.AuthViewModelFactory
 import com.example.todolist_ramkumartextiles.databinding.ActivityLoginBinding
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
-import com.google.firebase.iid.FirebaseInstanceId
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {

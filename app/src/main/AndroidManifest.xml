@@ -31,32 +31,28 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-        <activity android:name=".activity.InfoAct"
+        <activity android:name=".owners.views.activity.InfoAct"
                   android:theme="@style/AppTheme.CustomTheme">
         </activity>
         <activity
-                android:name=".activity.TaskRemaining"
+                android:name=".owners.views.activity.TaskRemaining"
                 android:theme="@style/AppTheme.CustomTheme">
         </activity>
         <activity
-                android:name=".activity.OwnersAct"
+                android:name=".owners.views.activity.OwnersAct"
                 android:screenOrientation="portrait">
         </activity>
         <activity
-                android:name=".activity.ownersLogIn"
+                android:name=".owners.views.activity.ownersLogIn"
                 android:screenOrientation="portrait">
         </activity>
         <activity
                 android:name=".activity.WelcomeScreen"
                 android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
         <activity
-                android:name=".activity.EmployeeActivity"
+                android:name=".tasks.views.activity.EmployeeActivity"
                 android:screenOrientation="portrait">
         </activity>
         <activity
@@ -68,8 +64,13 @@
                 android:screenOrientation="portrait">
         </activity>
         <activity
-                android:name=".activity.MainActivity"
+                android:name=".MainActivity"
                 android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
 
         <meta-data

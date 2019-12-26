@@ -1,17 +1,16 @@
 package com.example.todolist_ramkumartextiles.auth.data.repo
 
-import android.util.Log
+import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.todolist_ramkumartextiles.auth.data.Status
-import com.example.todolist_ramkumartextiles.auth.data.prefs.AuthPreferenceHelper
-import com.example.todolist_ramkumartextiles.model.UsersInformation
+import com.example.todolist_ramkumartextiles.owners.data.room.dataclasses.UsersInformation
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.iid.FirebaseInstanceId
 
 
-class AuthRepository(val prefs:AuthPreferenceHelper){
+class AuthRepository(val sharedPreferences: SharedPreferences){
 
     companion object {
         val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
@@ -84,11 +83,11 @@ class AuthRepository(val prefs:AuthPreferenceHelper){
     }
 
     fun setUsername(username: String){
-        prefs.setUsername(username)
+        sharedPreferences.edit().putString("PREF_KEY_CURRENT_USER_NAME",username)?.apply()
     }
 
     fun setLoginStatus(status:Boolean){
-        prefs.setLoginStatus(status)
+        sharedPreferences.edit().putBoolean("PREF_KEY_LOGIN_STATUS",status)
     }
 
     fun logout() = firebaseAuth.signOut()
