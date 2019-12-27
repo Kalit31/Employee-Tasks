@@ -15,8 +15,10 @@ import com.example.todolist_ramkumartextiles.owners.views.activity.InfoAct
 
 import java.util.ArrayList
 
-class RecycleAdapter_Info(private val employees: ArrayList<String>, private val context: Context?) :
+class RecycleAdapter_Info( private val context: Context?) :
     RecyclerView.Adapter<RecycleAdapter_Info.ViewHolder>() {
+
+    private var items : ArrayList<String> = ArrayList()
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
         val inflater = LayoutInflater.from(viewGroup.context)
@@ -25,26 +27,27 @@ class RecycleAdapter_Info(private val employees: ArrayList<String>, private val 
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
-        viewHolder.employee.text = employees[i]
+        viewHolder.employee.text = items[i]
         viewHolder.layout.setOnClickListener {
             val intent = Intent(context, InfoAct::class.java)
-            intent.putExtra("username", employees[i])
+            intent.putExtra("username", items[i])
             context?.startActivity(intent)
         }
     }
 
     override fun getItemCount(): Int {
-        return employees.size
+        return items.size
+    }
+
+    fun submitList(items:ArrayList<String>) {
+        this.items = items
+        notifyDataSetChanged()
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        internal var employee: TextView
-        internal var layout: LinearLayout
+        internal var employee: TextView = itemView.findViewById(R.id.tV_employee_info)
+        internal var layout: LinearLayout = itemView.findViewById(R.id.employee_info_layout)
 
-        init {
-            employee = itemView.findViewById(R.id.tV_employee_info)
-            layout = itemView.findViewById(R.id.employee_info_layout)
-        }
     }
 }

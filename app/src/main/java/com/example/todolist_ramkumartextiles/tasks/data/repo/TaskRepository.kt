@@ -20,7 +20,6 @@ class TaskRepository(val sharedPreferences: SharedPreferences){
         val database: FirebaseDatabase = FirebaseDatabase.getInstance()
     }
 
-
     var username:String = sharedPreferences.getString("PREF_KEY_CURRENT_USER_NAME","User").toString()
 
     fun loadTasks(taskCallback: TaskCallback) {

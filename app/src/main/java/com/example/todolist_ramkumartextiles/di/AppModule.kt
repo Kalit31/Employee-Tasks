@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import com.example.todolist_ramkumartextiles.auth.data.repo.AuthRepository
+import com.example.todolist_ramkumartextiles.owners.data.repo.OwnersRepository
 import com.example.todolist_ramkumartextiles.tasks.data.repo.TaskRepository
 import dagger.Module
 import dagger.Provides
@@ -22,6 +23,12 @@ class AppModule(private val application:Application){
     @Singleton
     fun providesTaskRepository(sharedPreferences: SharedPreferences):TaskRepository{
         return TaskRepository(sharedPreferences)
+    }
+
+    @Provides
+    @Singleton
+    fun providesOwnersRepository():OwnersRepository{
+        return OwnersRepository()
     }
 
     @Provides

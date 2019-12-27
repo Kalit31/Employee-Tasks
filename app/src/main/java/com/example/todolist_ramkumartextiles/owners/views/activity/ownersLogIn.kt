@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.todolist_ramkumartextiles.R
+import com.example.todolist_ramkumartextiles.di.AppModule
 import com.example.todolist_ramkumartextiles.owners.viewmodel.LoginViewModel
 import kotlinx.android.synthetic.main.activity_owners_login.*
 
@@ -23,9 +24,9 @@ class ownersLogIn : AppCompatActivity() {
 
         loginViewModel = ViewModelProviders.of(this).get(LoginViewModel::class.java)
 
-        var sharedPreferences = getSharedPreferences("LoginPref", Context.MODE_PRIVATE)
+        var sharedPreferences = AppModule(application).providesSharedPreferences(application)
 
-        if (sharedPreferences.getBoolean("KEY_OWNERS_LOGIN",false))        {
+        if (sharedPreferences.getBoolean("KEY_OWNERS_LOGIN",false)) {
             finish()
             startActivity(Intent(applicationContext, OwnersAct::class.java))
         }

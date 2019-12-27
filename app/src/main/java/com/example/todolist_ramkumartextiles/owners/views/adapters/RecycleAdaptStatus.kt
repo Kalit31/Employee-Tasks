@@ -15,8 +15,10 @@ import com.example.todolist_ramkumartextiles.owners.views.activity.TaskRemaining
 
 import java.util.ArrayList
 
-class RecycleAdaptStatus(private val items: ArrayList<String>, private val context: Context?) :
+class RecycleAdaptStatus(private val context: Context?) :
     RecyclerView.Adapter<RecycleAdaptStatus.ViewHolder>() {
+
+    private var items: ArrayList<String> = ArrayList()
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
         val inflater = LayoutInflater.from(viewGroup.context)
@@ -36,6 +38,11 @@ class RecycleAdaptStatus(private val items: ArrayList<String>, private val conte
 
     override fun getItemCount(): Int {
         return items.size
+    }
+
+    fun submitList(items:ArrayList<String>) {
+        this.items = items
+        notifyDataSetChanged()
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
