@@ -2,6 +2,10 @@ package com.example.todolist_ramkumartextiles.owners.views.fragments
 
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context.NOTIFICATION_SERVICE
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -26,6 +30,9 @@ class AssignTaskFrag : Fragment() {
 
     private lateinit var assignTaskViewModel: AssignTaskViewModel
     private var employeeName:String = ""
+    private val CHANNEL_ID = "notification_id"
+    private val CHANNEL_NAME = "notification_name"
+    private val CHANNEL_DESC = "notification_desc"
 
     @SuppressLint("SetTextI18n")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
@@ -36,6 +43,13 @@ class AssignTaskFrag : Fragment() {
 
         var usersList: ArrayList<String>
         var dateString = ""
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            var channel = NotificationChannel(CHANNEL_ID,CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT)
+            channel.description = CHANNEL_DESC
+            val notificationManager = context!!.getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel)
+        }
 
         assignTaskViewModel.removeNotifications()
 

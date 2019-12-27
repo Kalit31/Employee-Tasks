@@ -1,12 +1,10 @@
 package com.example.todolist_ramkumartextiles.tasks.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.todolist_ramkumartextiles.tasks.data.repo.TaskRepository
 import com.example.todolist_ramkumartextiles.tasks.data.room.dataclasses.TaskInformation
-import com.google.firebase.database.FirebaseDatabase
 
 class TaskToDoViewModel(
     private val taskRepository: TaskRepository
@@ -33,8 +31,7 @@ class TaskToDoViewModel(
     fun updateTasks(){
         for(task in taskData.value!!)
         {
-            if(task.status)
-            {
+            if(task.status){
                 taskRepository.removeTask(task)
             }
         }

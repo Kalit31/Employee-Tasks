@@ -34,10 +34,7 @@ class EmployeeActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
         sharedPreferences = AppModule(application).providesSharedPreferences(application)
 
-        Log.d("status","here")
-
        if(sharedPreferences.getBoolean("PREF_KEY_LOGIN_STATUS",false)) {
-            Toast.makeText(applicationContext,"here",Toast.LENGTH_SHORT).show()
             val intent = Intent(this, LocationService::class.java)
             startService(intent)
         }
@@ -58,6 +55,8 @@ class EmployeeActivity : AppCompatActivity() {
 
         logout.setOnClickListener {
             auth.signOut()
+            AppModule(application).providesSharedPreferences(application).edit().putBoolean("PREF_KEY_LOGIN_STATUS",false).apply()
+            AppModule(application).providesSharedPreferences(application).edit().putString("PREF_KEY_CURRENT_USER_NAME","user").apply()
             startActivity(Intent(applicationContext, LoginActivity::class.java))
             finish()
         }

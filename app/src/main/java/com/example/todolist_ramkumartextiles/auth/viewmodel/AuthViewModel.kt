@@ -20,7 +20,7 @@ class AuthViewModel(
     var email:String?= ""
     var p1:String?=""
     var p2:String?=""
-
+    var isUpdated:MutableLiveData<Boolean> = MutableLiveData()
 
     fun login(email:String,password:String):LiveData<Status>{
         var status: MutableLiveData<Status> = MutableLiveData()
@@ -51,6 +51,7 @@ class AuthViewModel(
     fun updateUsername(email:String){
         var index = email.indexOf('@')
         var key = email.substring(0,index)
+
         database.getReference("Usernames").child(key).addValueEventListener(object :ValueEventListener{
             override fun onCancelled(error: DatabaseError) {
                 //DO NOTHING
@@ -59,7 +60,12 @@ class AuthViewModel(
                 var username =  dataSnapshot.getValue(String::class.java).toString()
                 authRepository.setUsername(username)
                 authRepository.setLoginStatus(true)
+                isUpdated.value = true
             }
         })
+    }
+
+    fun getIsUpdated():LiveData<Boolean>{
+        return isUpdated
     }
 }

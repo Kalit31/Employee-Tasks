@@ -16,13 +16,14 @@ import kotlin.collections.ArrayList
 
 class TaskRepository(val sharedPreferences: SharedPreferences){
     companion object {
-        val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
         val database: FirebaseDatabase = FirebaseDatabase.getInstance()
     }
 
-    var username:String = sharedPreferences.getString("PREF_KEY_CURRENT_USER_NAME","User").toString()
+   lateinit var username:String
 
     fun loadTasks(taskCallback: TaskCallback) {
+        username = sharedPreferences.getString("PREF_KEY_CURRENT_USER_NAME","User").toString()
+        Log.d("myTest",username.toString())
         var databaseReference = database.getReference("Users").child(username!!).child("tasks")
         var tasks:ArrayList<TaskInformation> = ArrayList<TaskInformation>()
         databaseReference.addValueEventListener(object :ValueEventListener{

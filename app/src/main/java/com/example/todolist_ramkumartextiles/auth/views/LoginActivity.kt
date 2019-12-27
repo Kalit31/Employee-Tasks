@@ -42,12 +42,16 @@ class LoginActivity : AppCompatActivity() {
 
         login.setOnClickListener {
             authViewModel.login(emailL.text.toString(),etPasswordL.text.toString())
-                .observe(this, Observer{
-                    Toast.makeText(applicationContext,it.message,Toast.LENGTH_SHORT).show()
-                    if(it.complete){
-                        finish()
+                .observe(this, Observer{ it1 ->
+                    Toast.makeText(applicationContext,it1.message,Toast.LENGTH_SHORT).show()
+                    if(it1.complete){
                         authViewModel.updateUsername(emailL.text.toString())
-                        startActivity(Intent(this, EmployeeActivity::class.java))
+                        authViewModel.getIsUpdated().observe(this, Observer {
+                            if(it){
+                                startActivity(Intent(this, EmployeeActivity::class.java))
+                                finish()
+                            }
+                        })
                     }
                 })
         }

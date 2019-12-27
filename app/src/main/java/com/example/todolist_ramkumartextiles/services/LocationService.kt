@@ -26,22 +26,16 @@ class LocationService : Service(), GoogleApiClient.ConnectionCallbacks,
 
     private var mGoogleAPIClient: GoogleApiClient? = null
     private var mLocationRequest: LocationRequest? = null
-    private val mLocationProvider: FusedLocationProviderApi? = null
     private val UPDATE_INTERVAL = 10000
     private val FASTEST_INTERVAL = 2000
     private var mLocation: Location? = null
     private var mLocationManager: LocationManager? = null
-    private val listener: com.google.android.gms.location.LocationListener? = null
-
 
     internal inner class LocationThread(var service_id: Int) : Runnable {
-
-
         override fun run() {
             mGoogleAPIClient!!.connect()
         }
     }
-
 
     override fun onBind(intent: Intent): IBinder? {
         return null
@@ -56,7 +50,6 @@ class LocationService : Service(), GoogleApiClient.ConnectionCallbacks,
 
     override fun onCreate() {
         super.onCreate()
-        Log.d("tests","Location Service")
         mGoogleAPIClient = GoogleApiClient.Builder(this)
             .addApi(LocationServices.API)
             .addConnectionCallbacks(this)
@@ -94,12 +87,8 @@ class LocationService : Service(), GoogleApiClient.ConnectionCallbacks,
         }
     }
 
-
     override fun onLocationChanged(location: Location) {
-        Log.d(
-            "Background Location ",
-            "::::***********Latitude: " + location.latitude + " Longitude: " + location.longitude
-        )
+        Log.d("Background Location ","::::***********Latitude: " + location.latitude + " Longitude: " + location.longitude)
         val sharedPreferences = getSharedPreferences("LoginPref", Context.MODE_PRIVATE)
         val username = sharedPreferences.getString("PREF_KEY_CURRENT_USER_NAME", "")
         val refLocation = FirebaseDatabase.getInstance().getReference("Users").child(username!!)
@@ -107,13 +96,11 @@ class LocationService : Service(), GoogleApiClient.ConnectionCallbacks,
         refLocation.child("longitude").setValue(location.longitude.toString())
     }
 
-    override fun onConnectionSuspended(i: Int) {
+     override fun onConnectionSuspended(i: Int) {
         mGoogleAPIClient!!.connect()
     }
 
-    override fun onConnectionFailed(connectionResult: ConnectionResult) {
-
-    }
+    override fun onConnectionFailed(connectionResult: ConnectionResult){}
 
     protected fun startLocationUpdates() {
         // Create the location request
@@ -122,32 +109,21 @@ class LocationService : Service(), GoogleApiClient.ConnectionCallbacks,
             .setInterval(UPDATE_INTERVAL.toLong())
             .setFastestInterval(FASTEST_INTERVAL.toLong())
         // Request location updates
-        if (ActivityCompat.checkSelfPermission(
-                this,
-                android.Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                this,
-                android.Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            return
-        }
+        if (ActivityCompat.checkSelfPermission(this,android.Manifest.permission.ACCESS_FINE_LOCATION)
+            != PackageManager.PERMISSION_GRANTED &&
+            ActivityCompat.checkSelfPermission(this,android.Manifest.permission.ACCESS_COARSE_LOCATION)
+            != PackageManager.PERMISSION_GRANTED
+        ) {return }
+
         LocationServices.FusedLocationApi.requestLocationUpdates(
             mGoogleAPIClient,
             mLocationRequest, this
         )
-
     }
 
-    fun onStatusChanged(provider: String, status: Int, extras: Bundle) {
+    fun onStatusChanged(provider: String, status: Int, extras: Bundle) { }
 
-    }
+    fun onProviderEnabled(provider: String) { }
 
-    fun onProviderEnabled(provider: String) {
-
-    }
-
-    fun onProviderDisabled(provider: String) {
-
-    }
+    fun onProviderDisabled(provider: String) { }
 }

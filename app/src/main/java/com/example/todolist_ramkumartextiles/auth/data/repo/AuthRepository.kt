@@ -1,6 +1,7 @@
 package com.example.todolist_ramkumartextiles.auth.data.repo
 
 import android.content.SharedPreferences
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.todolist_ramkumartextiles.auth.data.Status
@@ -84,9 +85,10 @@ class AuthRepository(val sharedPreferences: SharedPreferences){
 
     fun setUsername(username: String){
         sharedPreferences.edit().putString("PREF_KEY_CURRENT_USER_NAME",username.trim())?.apply()
+        Log.d("myTest","AUTH"+sharedPreferences.getString("PREF_KEY_CURRENT_USER_NAME","user").toString())
     }
 
     fun setLoginStatus(status:Boolean){
-        sharedPreferences.edit().putBoolean("PREF_KEY_LOGIN_STATUS",status)
+        sharedPreferences.edit().putBoolean("PREF_KEY_LOGIN_STATUS",status).apply()
     }
 }

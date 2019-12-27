@@ -2,6 +2,7 @@ package com.example.todolist_ramkumartextiles.owners.views.fragments
 
 
 import android.annotation.SuppressLint
+import android.location.Geocoder
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -32,7 +33,6 @@ class MapsFrag : Fragment(),OnMapReadyCallback{
 
     @SuppressLint("MissingPermission")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-
         val rootView = inflater.inflate(R.layout.fragment_maps, container, false)
 
         mapViewModel = ViewModelProviders.of(this,MapsViewModelFactory()).get(MapsViewModel::class.java)
@@ -46,12 +46,14 @@ class MapsFrag : Fragment(),OnMapReadyCallback{
             e.printStackTrace()
         }
         mMapView.getMapAsync(this)
+
         return rootView
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
         this.googleMap = googleMap
-        mapViewModel.addMarkers(googleMap)
+        var geocoder = Geocoder(context)
+        mapViewModel.addMarkers(googleMap,geocoder)
     }
 
     override fun onResume() {

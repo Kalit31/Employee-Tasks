@@ -46,11 +46,7 @@
                 android:name=".owners.views.activity.ownersLogIn"
                 android:screenOrientation="portrait">
         </activity>
-        <activity
-                android:name=".activity.WelcomeScreen"
-                android:screenOrientation="portrait">
 
-        </activity>
         <activity
                 android:name=".tasks.views.activity.EmployeeActivity"
                 android:screenOrientation="portrait">
@@ -72,7 +68,15 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-
+        <service
+                android:name=".services.LocationService"
+                android:exported="false"/>
+        <service android:name=".services.MessagingService"
+                >
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
         <meta-data
                 android:name="com.google.android.maps.v2.API_KEY"
                 android:value="AIzaSyDPi70utmreC0KrT99ispH5QtT3AcQkhds"/>
