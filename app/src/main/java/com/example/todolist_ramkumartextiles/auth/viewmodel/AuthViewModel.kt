@@ -15,6 +15,7 @@ import com.google.firebase.database.ValueEventListener
 class AuthViewModel(
     private val authRepository: AuthRepository
 ): ViewModel() {
+
     var username:String? = ""
     var email:String?= ""
     var p1:String?=""
@@ -28,7 +29,6 @@ class AuthViewModel(
             status.value = Status(false,"Please enter all details!")
             return status
         }
-
         return authRepository.login(email,password)
     }
 
@@ -40,12 +40,10 @@ class AuthViewModel(
             status.value = Status(false,"Please enter all details!")
             return status
        }
-
        if(!p1.equals(p2)) {
            status.value = Status(false,"Passwords do not match!")
            return status
        }
-
        return authRepository.register(username, email, p1)
     }
 
@@ -57,7 +55,6 @@ class AuthViewModel(
             override fun onCancelled(error: DatabaseError) {
                 //DO NOTHING
             }
-
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 var username =  dataSnapshot.getValue(String::class.java).toString()
                 authRepository.setUsername(username)

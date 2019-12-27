@@ -56,6 +56,5 @@ class LoginActivity : AppCompatActivity() {
             finish()
             startActivity(Intent(this, RegisterActivity::class.java))
         }
-
     }
 }

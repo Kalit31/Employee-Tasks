@@ -1,20 +1,21 @@
 package com.example.todolist_ramkumartextiles.tasks.views.activity
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.todolist_ramkumartextiles.R
 import com.example.todolist_ramkumartextiles.services.LocationService
 import com.example.todolist_ramkumartextiles.auth.views.LoginActivity
+import com.example.todolist_ramkumartextiles.di.AppModule
 import com.example.todolist_ramkumartextiles.tasks.views.fragments.CompletedFrag
 import com.example.todolist_ramkumartextiles.tasks.views.fragments.ToDoFrag
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.*
 import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.android.synthetic.main.activity_to_do.*
 
@@ -31,24 +32,25 @@ class EmployeeActivity : AppCompatActivity() {
         setContentView(R.layout.activity_to_do)
 
         auth = FirebaseAuth.getInstance()
-        sharedPreferences = getSharedPreferences("LoginPref", Context.MODE_PRIVATE)
+        sharedPreferences = AppModule(application).providesSharedPreferences(application)
 
-        if(sharedPreferences.getBoolean("LoginStatus",false)) {
+        Log.d("status","here")
+
+       if(sharedPreferences.getBoolean("PREF_KEY_LOGIN_STATUS",false)) {
+            Toast.makeText(applicationContext,"here",Toast.LENGTH_SHORT).show()
             val intent = Intent(this, LocationService::class.java)
             startService(intent)
         }
 
         this.username = sharedPreferences.getString("PREF_KEY_CURRENT_USER_NAME","User").toString()
-
-        if(auth.currentUser == null)
-        {
+        if(auth.currentUser == null)        {
             finish()
             startActivity(Intent(applicationContext, LoginActivity::class.java))
         }
 
         FirebaseMessaging.getInstance().subscribeToTopic("user_$username")
 
-            bottom_nav_us.setOnNavigationItemSelectedListener (mOnNavigationItemSelectedListener)
+        bottom_nav_us.setOnNavigationItemSelectedListener (mOnNavigationItemSelectedListener)
         val startFrag = ToDoFrag()
         supportFragmentManager.beginTransaction().replace(R.id.fragment_container_user, startFrag).commit()
 
@@ -57,13 +59,11 @@ class EmployeeActivity : AppCompatActivity() {
         logout.setOnClickListener {
             auth.signOut()
             startActivity(Intent(applicationContext, LoginActivity::class.java))
-            val ref = FirebaseDatabase.getInstance().getReference("Users").child(username).child("token")
-            ref.removeValue()
             finish()
         }
     }
-    private  val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
 
+    private  val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         var selectedFragment: Fragment? = null
         when(item.itemId)
         {

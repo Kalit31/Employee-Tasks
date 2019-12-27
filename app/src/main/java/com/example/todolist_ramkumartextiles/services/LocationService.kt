@@ -56,7 +56,7 @@ class LocationService : Service(), GoogleApiClient.ConnectionCallbacks,
 
     override fun onCreate() {
         super.onCreate()
-
+        Log.d("tests","Location Service")
         mGoogleAPIClient = GoogleApiClient.Builder(this)
             .addApi(LocationServices.API)
             .addConnectionCallbacks(this)
@@ -101,7 +101,7 @@ class LocationService : Service(), GoogleApiClient.ConnectionCallbacks,
             "::::***********Latitude: " + location.latitude + " Longitude: " + location.longitude
         )
         val sharedPreferences = getSharedPreferences("LoginPref", Context.MODE_PRIVATE)
-        val username = sharedPreferences.getString("username", "")
+        val username = sharedPreferences.getString("PREF_KEY_CURRENT_USER_NAME", "")
         val refLocation = FirebaseDatabase.getInstance().getReference("Users").child(username!!)
         refLocation.child("latitude").setValue(location.latitude.toString())
         refLocation.child("longitude").setValue(location.longitude.toString())

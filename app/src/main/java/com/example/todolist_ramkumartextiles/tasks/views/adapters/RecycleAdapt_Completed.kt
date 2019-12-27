@@ -1,4 +1,4 @@
-package com.example.todolist_ramkumartextiles.owners.views.adapters
+package com.example.todolist_ramkumartextiles.tasks.views.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -11,8 +11,9 @@ import com.example.todolist_ramkumartextiles.tasks.data.room.dataclasses.TaskInf
 
 import java.util.ArrayList
 
-class RecycleAdapt_Completed(private val items: ArrayList<TaskInformation>, context: Context?) :
-    RecyclerView.Adapter<RecycleAdapt_Completed.ViewHolder>() {
+class RecycleAdapt_Completed() : RecyclerView.Adapter<RecycleAdapt_Completed.ViewHolder>() {
+
+    private var items : ArrayList<TaskInformation> = ArrayList()
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
         val inflater = LayoutInflater.from(viewGroup.context)
@@ -27,6 +28,11 @@ class RecycleAdapt_Completed(private val items: ArrayList<TaskInformation>, cont
 
     override fun getItemCount(): Int {
         return items.size
+    }
+
+    fun submitList(items:ArrayList<TaskInformation>) {
+        this.items = items
+        notifyDataSetChanged()
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

@@ -26,11 +26,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        Log.d("test","onCreate")
+        Log.d("tests","onCreate")
 
         sharedPreferences = getSharedPreferences("LoginPref", Context.MODE_PRIVATE)
-        if(ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
-        {
+        if(ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             requestLocationPermission()
         }
 
@@ -38,24 +37,17 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, LoginActivity::class.java))
         }
 
-        /*butt_register.setOnClickListener {
-
-            startActivity(Intent(this, RegisterActivity::class.java))
-        }*/
 
         butt_owners.setOnClickListener {
-
             startActivity(Intent(this, ownersLogIn::class.java))
-
         }
-        if(sharedPreferences.getBoolean("LoginStatus",false)) {
+
+        if(sharedPreferences.getBoolean("PREF_KEY_LOGIN_STATUS",false)) {
             val intent = Intent(this, LocationService::class.java)
             startService(intent)
         }
 
     }
-
-
    override fun onStart() {
         super.onStart()
         Log.d("test","onStart")
@@ -63,7 +55,7 @@ class MainActivity : AppCompatActivity() {
 
    override fun onResume() {
         super.onResume()
-       if(sharedPreferences.getBoolean("LoginStatus",false)) {
+       if(sharedPreferences.getBoolean("PREF_KEY_LOGIN_STATUS",false)) {
            val intent = Intent(this, LocationService::class.java)
            startService(intent)
        }
@@ -79,45 +71,3 @@ class MainActivity : AppCompatActivity() {
         Log.d("test","onPause")
    }
 }
-
-
-
-
-//if(sharedPreferences.getBoolean("LoginStatus",false))
-//        {
-//            val intent = Intent(this, LocationService::class.java)
-//            startService(intent)
-//        }
-//        else{
-//            val intent = Intent(this, LocationService::class.java)
-//            stopService(intent)
-//        }
-
-
-
-
-
-//        if(sharedPreferences.getBoolean("LoginStatus",false))
-//         {
-//           username = sharedPreferences.getString("username","").toString()
-//           mGoogleApiClient = GoogleApiClient.Builder(this)
-//                  .addConnectionCallbacks(this)
-//                  .addOnConnectionFailedListener(this)
-//                  .addApi(LocationServices.API)
-//                  .build()
-//
-//           mLocationManager = this.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-//         }
-
-//            if(sharedPreferences.getBoolean("LoginStatus",false)) {
-//                if (mGoogleApiClient!!.isConnected()) {
-//                    mGoogleApiClient!!.disconnect()
-//                }
-//            }
-
-
-//        if (mGoogleApiClient != null) {
-//            mGoogleApiClient!!.connect()
-//        }
-
-//, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener

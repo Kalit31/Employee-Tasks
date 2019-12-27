@@ -13,11 +13,9 @@ class RecycleAdapt : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
     private var items : ArrayList<TaskInformation> = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-
         return RecycleViewHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.task_layout, parent, false)
         )
-
     }
 
     override fun getItemCount(): Int {
@@ -51,9 +49,5 @@ class RecycleAdapt : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
                 taskInfo.status = b
             }
         }
-
     }
-
-
-
 }

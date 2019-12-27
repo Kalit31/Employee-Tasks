@@ -20,7 +20,7 @@ class AuthRepository(val sharedPreferences: SharedPreferences){
     fun register(username:String,email:String,password: String): LiveData<Status> {
         var status: MutableLiveData<Status> = MutableLiveData()
 
-        firebaseAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener{
+        firebaseAuth.createUserWithEmailAndPassword(email.trim(),password.trim()).addOnCompleteListener{
             if(it.isSuccessful) {
                 status.value = Status(
                     true,
@@ -45,7 +45,7 @@ class AuthRepository(val sharedPreferences: SharedPreferences){
 
     fun login(email:String,password: String): LiveData<Status> {
         var status: MutableLiveData<Status> = MutableLiveData()
-        firebaseAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener{
+        firebaseAuth.signInWithEmailAndPassword(email.trim(),password.trim()).addOnCompleteListener{
             if(it.isSuccessful) {
                 status.value = Status(
                     true,
@@ -67,12 +67,12 @@ class AuthRepository(val sharedPreferences: SharedPreferences){
         val token = FirebaseInstanceId.getInstance().token
         val userInfo: UsersInformation =
             UsersInformation(
-                username,
-                email,
-                password,
+                username.trim(),
+                email.trim(),
+                password.trim(),
                 token
             )
-        database.getReference("Users").child(username).setValue(userInfo)
+        database.getReference("Users").child(username.trim()).setValue(userInfo)
         val ref = FirebaseDatabase.getInstance().getReference("Usernames")
         var index = email.indexOf('@')
         var key = email.substring(0,index)
@@ -83,12 +83,10 @@ class AuthRepository(val sharedPreferences: SharedPreferences){
     }
 
     fun setUsername(username: String){
-        sharedPreferences.edit().putString("PREF_KEY_CURRENT_USER_NAME",username)?.apply()
+        sharedPreferences.edit().putString("PREF_KEY_CURRENT_USER_NAME",username.trim())?.apply()
     }
 
     fun setLoginStatus(status:Boolean){
         sharedPreferences.edit().putBoolean("PREF_KEY_LOGIN_STATUS",status)
     }
-
-    fun logout() = firebaseAuth.signOut()
 }

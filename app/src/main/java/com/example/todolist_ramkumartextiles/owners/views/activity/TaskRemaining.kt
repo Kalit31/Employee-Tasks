@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.util.DisplayMetrics
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.todolist_ramkumartextiles.R
-import com.example.todolist_ramkumartextiles.owners.views.adapters.RecycleAdapt_Completed
+import com.example.todolist_ramkumartextiles.tasks.views.adapters.RecycleAdapt_Completed
 import com.example.todolist_ramkumartextiles.tasks.data.room.dataclasses.TaskInformation
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_task_remaining.*
@@ -35,10 +35,8 @@ class TaskRemaining : AppCompatActivity() {
        databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(username).
                 child("tasks")
 
-        databaseReference.addValueEventListener(object :ValueEventListener
-        {
+        databaseReference.addValueEventListener(object :ValueEventListener  {
             override fun onCancelled(p0: DatabaseError) {
-
             }
 
             override fun onDataChange(p0: DataSnapshot) {
@@ -49,16 +47,12 @@ class TaskRemaining : AppCompatActivity() {
                     if (item != null) {
                         items.add(item)
                     }
-                    adapter =
-                        RecycleAdapt_Completed(
-                            items,
-                            applicationContext
-                        )
+                    adapter = RecycleAdapt_Completed()
+                    adapter.submitList(items)
                     task_remaining_rv.layoutManager = LinearLayoutManager(this@TaskRemaining)
                     task_remaining_rv.adapter = adapter
                 }
             }
         })
-
     }
 }
